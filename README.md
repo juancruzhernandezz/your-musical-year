@@ -4,6 +4,8 @@ Tu historial de Spotify, contado mejor: mes por mes, día por día y hora por ho
 
 Todo se procesa **en tu navegador**: tus datos no se suben a ningún lado.
 
+### 👉 [Abrir la página](https://juancruzhernandezz.github.io/your-musical-year/)
+
 ## Qué muestra
 
 - **Resumen anual**: minutos totales, top artistas, canciones y álbumes, racha más larga, sesión más larga, índice de impaciencia (cuánto salteás), descubrimientos, dispositivos y países.
@@ -25,7 +27,7 @@ Todo se procesa **en tu navegador**: tus datos no se suben a ningún lado.
 
 Es un único archivo `index.html`. Podés:
 
-- **Usarlo online** desde GitHub Pages (el link está arriba, en *About*).
+- **Usarlo online**: [juancruzhernandezz.github.io/your-musical-year](https://juancruzhernandezz.github.io/your-musical-year/).
 - **Abrirlo en tu compu**: descargá `index.html` y hacé doble clic. Funciona igual.
 
 ## Imágenes
