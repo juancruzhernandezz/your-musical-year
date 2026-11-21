@@ -1081,8 +1081,8 @@ function openTrack(key){
    Si algo falla, queda el avatar de color. Los resultados se guardan en localStorage.
    ============================================================ */
 const IMG = { mem: new Map(), pending: new Map(), failed: new Set(), queue: [], active: 0 };
-try { const saved = JSON.parse(localStorage.getItem('img:v1') || '{}'); for (const k in saved) IMG.mem.set(k, saved[k]); } catch (e) {}
-let saveT; function saveImgs(){ clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem('img:v1', JSON.stringify(Object.fromEntries(IMG.mem))); } catch (e) {} }, 800); }
+try { const saved = JSON.parse(localStorage.getItem('img:v2') || '{}'); for (const k in saved) IMG.mem.set(k, saved[k]); } catch (e) {}
+let saveT; function saveImgs(){ clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem('img:v2', JSON.stringify(Object.fromEntries(IMG.mem))); } catch (e) {} }, 800); }
 const norm = x => String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 function jsonp(url){
@@ -1106,8 +1106,9 @@ async function resolveImg(kind, key){
   }
   if (kind === 'al') {
     const [artist, album] = key.split('|');
-    const r = await deezer('album', `artist:"${artist}" album:"${album}"`);
-    return r[0] ? r[0].cover_medium : '';
+    const r = await deezer('album', `${artist} ${album}`);
+    const hit = r.find(a => a.artist && norm(a.artist.name) === norm(artist)) || r[0];
+    return hit ? hit.cover_medium : '';
   }
   // canción
   const uri = DB.uris.get(key);
@@ -1117,9 +1118,11 @@ async function resolveImg(kind, key){
       if (j && j.thumbnail_url) return j.thumbnail_url;
     } catch (e) {}
   }
+  // la búsqueda avanzada de Deezer (artist:"…" track:"…") no devuelve nada: va texto simple
   const [artist, track] = key.split(' — ');
-  const r = await deezer('', `artist:"${artist}" track:"${track}"`);
-  return r[0] && r[0].album ? r[0].album.cover_medium : '';
+  const r = await deezer('', `${artist} ${track}`);
+  const hit = r.find(t => t.artist && norm(t.artist.name) === norm(artist)) || r[0];
+  return hit && hit.album ? hit.album.cover_medium : '';
 }
 
 function getImg(kind, key){
