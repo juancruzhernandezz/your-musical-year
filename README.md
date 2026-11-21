@@ -1,10 +1,12 @@
-# Your musical year🎧
+<p align="center"><img src="logo.svg" width="110" alt=""></p>
+
+# Your musical year
 
 Tu historial de Spotify, contado mejor: mes por mes, día por día y hora por hora.
 
 Todo se procesa **en tu navegador**: tus datos no se suben a ningún lado.
 
-### 👉 [Abrir la página](https://juancruzhernandezz.github.io/your-musical-year/)
+### [Abrir la página →](https://juancruzhernandezz.github.io/your-musical-year/)
 
 ## Qué muestra
 

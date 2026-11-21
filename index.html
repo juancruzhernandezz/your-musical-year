@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wrapped by JC</title>
+<title>Your musical year</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%20aria-hidden%3D%22true%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22f%22%20x1%3D%226%22%20y1%3D%226%22%20x2%3D%2258%22%20y2%3D%2258%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fb923c%22/%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23ec4899%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238b5cf6%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22%230b0b12%22/%3E%3Cg%20stroke%3D%22url%28%23f%29%22%20stroke-width%3D%224.4%22%20stroke-linecap%3D%22round%22%3E%3Cline%20x1%3D%2232.00%22%20y1%3D%2219.50%22%20x2%3D%2232.00%22%20y2%3D%2210.98%22/%3E%3Cline%20x1%3D%2238.25%22%20y1%3D%2221.17%22%20x2%3D%2244.30%22%20y2%3D%2210.70%22/%3E%3Cline%20x1%3D%2242.83%22%20y1%3D%2225.75%22%20x2%3D%2251.15%22%20y2%3D%2220.95%22/%3E%3Cline%20x1%3D%2244.50%22%20y1%3D%2232.00%22%20x2%3D%2259.23%22%20y2%3D%2232.00%22/%3E%3Cline%20x1%3D%2242.83%22%20y1%3D%2238.25%22%20x2%3D%2252.22%22%20y2%3D%2243.67%22/%3E%3Cline%20x1%3D%2238.25%22%20y1%3D%2242.83%22%20x2%3D%2246.00%22%20y2%3D%2256.25%22/%3E%3Cline%20x1%3D%2232.00%22%20y1%3D%2244.50%22%20x2%3D%2232.00%22%20y2%3D%2257.21%22/%3E%3Cline%20x1%3D%2225.75%22%20y1%3D%2242.83%22%20x2%3D%2221.10%22%20y2%3D%2250.88%22/%3E%3Cline%20x1%3D%2221.17%22%20y1%3D%2238.25%22%20x2%3D%229.09%22%20y2%3D%2245.23%22/%3E%3Cline%20x1%3D%2219.50%22%20y1%3D%2232.00%22%20x2%3D%228.34%22%20y2%3D%2232.00%22/%3E%3Cline%20x1%3D%2221.17%22%20y1%3D%2225.75%22%20x2%3D%2214.46%22%20y2%3D%2221.88%22/%3E%3Cline%20x1%3D%2225.75%22%20y1%3D%2221.17%22%20x2%3D%2219.16%22%20y2%3D%229.76%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%225.2%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.6%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -32,7 +33,8 @@ a{color:#c4b5fd}
 /* ---------- Landing ---------- */
 #landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 22px;text-align:center}
 .logo{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:15px;color:var(--muted);margin-bottom:28px}
-.logo i{width:12px;height:12px;border-radius:50%;background:var(--grad);box-shadow:0 0 18px #a855f7}
+.logo svg{flex:none}
+.logo.land{flex-direction:column;gap:14px;font-size:16px;color:var(--text)}
 #landing h1{font-size:clamp(44px,8vw,92px);font-weight:900;letter-spacing:-.045em;line-height:.95;max-width:900px}
 #landing p.lead{margin:22px auto 0;max-width:560px;font-size:18px;line-height:1.5;color:var(--muted)}
 .drop{margin:40px auto 0;width:min(560px,100%);border:1.5px dashed rgba(255,255,255,.18);border-radius:28px;padding:34px 24px;background:var(--card);transition:.2s;cursor:pointer}
@@ -206,13 +208,69 @@ input.scrub{width:100%;margin-top:20px;accent-color:#ec4899}
 .st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--card2);border:1px solid var(--line);white-space:nowrap}
 @media(max-width:760px){.ob-row,.ob-axis{grid-template-columns:1fr;gap:8px}.ob-axis>div:first-child{display:none}}
 .av.img,.cover.img{background-size:cover!important;background-position:center!important;color:transparent!important;text-shadow:none!important}
+.ic{flex:none;display:inline-block;vertical-align:middle}
+.lockline{display:inline-flex;align-items:center;gap:8px}
+.cover svg{opacity:.85}
+.calbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+.calnav{display:flex;gap:6px}
+.calnav button{width:40px;height:40px;border-radius:50%;background:var(--card2);border:1px solid var(--line);display:grid;place-items:center}
+.calnav button:disabled{opacity:.25;cursor:default}
+.caltitle{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.datein{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;color-scheme:dark}
+.cal-m .mhead{cursor:pointer}
+.bigcal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.bigcal .wd{font-size:12px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:0 4px 2px}
+.mcell{min-height:104px;border-radius:14px;padding:10px;background:rgba(255,255,255,.04);cursor:pointer;display:flex;flex-direction:column;gap:3px;border:1px solid transparent;overflow:hidden;transition:border-color .15s,transform .15s}
+.mcell:hover{border-color:rgba(255,255,255,.55);transform:translateY(-2px)}
+.mcell.l1{background:#2e1065}.mcell.l2{background:#6b21a8}.mcell.l3{background:#a21caf}.mcell.l4{background:#db2777}.mcell.l5{background:#f97316}
+.mcell .dn{font-weight:800;font-size:15px}
+.mcell .sm{display:none}
+@media(max-width:700px){.mcell .lg{display:none}.mcell .sm{display:inline}}
+.mcell .dm{font-size:12px;font-weight:600;color:rgba(255,255,255,.9)}
+.mcell .da{font-size:11px;color:rgba(255,255,255,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:auto}
+.mcell.fut{opacity:.22;cursor:default}.mcell.fut:hover{transform:none;border-color:transparent}
+@media(max-width:700px){.bigcal{gap:4px}.mcell{min-height:56px;padding:6px;border-radius:10px}.mcell .da{display:none}.mcell .dm{font-size:10px}}
+.gday{grid-template-columns:1.7fr 1fr}
+@media(max-width:980px){.gday{grid-template-columns:1fr}}
+.prow{display:flex;gap:12px;align-items:center;padding:8px 10px;margin:0 -10px;border-radius:12px;color:inherit;text-decoration:none;transition:background .15s}
+.prow:hover{background:rgba(255,255,255,.055)}
+.prow .tm{width:44px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
+.prow.sk{opacity:.45}
+.pl{width:30px;height:30px;border-radius:50%;background:#1ed760;color:#000;display:grid;place-items:center;flex:none;opacity:0;transform:scale(.85);transition:.15s}
+.prow:hover .pl{opacity:1;transform:none}
+@media(hover:none){.pl{opacity:.9;transform:none}}
+.frh{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:20px 0 6px}
+.frh:first-child{margin-top:0}
+.fr-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:24px}
+@media(max-width:1000px){.fr-tiles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.fr-tiles{grid-template-columns:repeat(2,1fr)}}
+.ftile{text-align:left;padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;transition:.2s}
+.ftile::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--g1),var(--g2));opacity:.07;transition:.2s}
+.ftile:hover::before{opacity:.16}
+.ftile.on{border-color:rgba(255,255,255,.4)}.ftile.on::before{opacity:.3}
+.ftile>*{position:relative}
+.ficon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;flex:none}
+.ftile .fn{font-weight:800;font-size:16px;margin-top:12px}
+.ftile .frg{font-size:12px;color:var(--muted);margin-top:1px}
+.ftile .fp{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-top:8px}
+.frdet{margin-top:16px;position:relative;overflow:hidden}
+.frdet::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--g1),var(--g2));opacity:.1;pointer-events:none}
+.frdet>*{position:relative}
+.frdet-h{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.frdet-h .t{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.btn.sp{background:#1ed760;color:#000;margin-top:16px;text-decoration:none}
+.st{display:inline-flex;align-items:center;gap:6px}
+.st i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dev{display:inline-flex;align-items:center;gap:8px}
+.ctrl button{display:inline-grid;place-items:center}
+.emptyc{text-align:center;padding:60px 20px}
 .foot{text-align:center;color:var(--dim);font-size:13px;margin-top:50px}
 </style>
 </head>
 <body>
 
 <section id="landing">
-  <div class="logo"><i></i>Wrapped by JC</div>
+  <div class="logo land"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="72" height="72" aria-hidden="true"><defs><linearGradient id="ymyg1" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fb923c"/><stop offset=".45" stop-color="#ec4899"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><g stroke="url(#ymyg1)" stroke-width="4.4" stroke-linecap="round"><line x1="32.00" y1="19.50" x2="32.00" y2="10.98"/><line x1="38.25" y1="21.17" x2="44.30" y2="10.70"/><line x1="42.83" y1="25.75" x2="51.15" y2="20.95"/><line x1="44.50" y1="32.00" x2="59.23" y2="32.00"/><line x1="42.83" y1="38.25" x2="52.22" y2="43.67"/><line x1="38.25" y1="42.83" x2="46.00" y2="56.25"/><line x1="32.00" y1="44.50" x2="32.00" y2="57.21"/><line x1="25.75" y1="42.83" x2="21.10" y2="50.88"/><line x1="21.17" y1="38.25" x2="9.09" y2="45.23"/><line x1="19.50" y1="32.00" x2="8.34" y2="32.00"/><line x1="21.17" y1="25.75" x2="14.46" y2="21.88"/><line x1="25.75" y1="21.17" x2="19.16" y2="9.76"/></g><circle cx="32" cy="32" r="5.2" fill="none" stroke="#fff" stroke-width="2.6"/></svg><span>Your musical year</span></div>
   <h1>Tu música,<br><span class="grad">sin resumir.</span></h1>
   <p class="lead">Mes por mes, día por día y hora por hora. Todo lo que Spotify sabe de lo que escuchás, pero contado mejor.</p>
   <label class="drop" id="drop">
@@ -221,13 +279,13 @@ input.scrub{width:100%;margin-top:20px;accent-color:#ec4899}
     <span>o los archivos <code>Streaming_History_Audio_*.json</code> · hacé clic para elegirlos</span>
   </label>
   <div class="landing-actions">
-    <button class="btn" id="demo">✨ Probar con datos de ejemplo</button>
+    <button class="btn" id="demo">Probar con datos de ejemplo</button>
   </div>
   <div id="err" class="err" hidden></div>
   <div class="how">
-    🔒 Todo se procesa en tu navegador. Tus datos no se suben a ningún lado.
+    <span class="lockline"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>Todo se procesa en tu navegador. Tus datos no se suben a ningún lado.</span>
     <br><br>
-    <b>¿Cómo consigo mis datos?</b>
+    <b style="display:block;color:var(--text)">¿Cómo consigo mis datos?</b>
     <ol>
       <li>Entrá a <a href="https://www.spotify.com/account/privacy/" target="_blank" rel="noopener">spotify.com/account/privacy</a></li>
       <li>Marcá <b>“Extended streaming history”</b> y pedí los datos</li>
@@ -239,7 +297,7 @@ input.scrub{width:100%;margin-top:20px;accent-color:#ec4899}
 <div id="app" hidden>
   <header class="topbar">
     <div class="topbar-in">
-      <div class="logo"><i></i>Wrapped by JC</div>
+      <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><defs><linearGradient id="ymyg2" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fb923c"/><stop offset=".45" stop-color="#ec4899"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><g stroke="url(#ymyg2)" stroke-width="4.4" stroke-linecap="round"><line x1="32.00" y1="19.50" x2="32.00" y2="10.98"/><line x1="38.25" y1="21.17" x2="44.30" y2="10.70"/><line x1="42.83" y1="25.75" x2="51.15" y2="20.95"/><line x1="44.50" y1="32.00" x2="59.23" y2="32.00"/><line x1="42.83" y1="38.25" x2="52.22" y2="43.67"/><line x1="38.25" y1="42.83" x2="46.00" y2="56.25"/><line x1="32.00" y1="44.50" x2="32.00" y2="57.21"/><line x1="25.75" y1="42.83" x2="21.10" y2="50.88"/><line x1="21.17" y1="38.25" x2="9.09" y2="45.23"/><line x1="19.50" y1="32.00" x2="8.34" y2="32.00"/><line x1="21.17" y1="25.75" x2="14.46" y2="21.88"/><line x1="25.75" y1="21.17" x2="19.16" y2="9.76"/></g><circle cx="32" cy="32" r="5.2" fill="none" stroke="#fff" stroke-width="2.6"/></svg><span>Your musical year</span></div>
       <span class="badge" id="demoBadge" hidden>Datos de ejemplo</span>
       <div class="spacer"></div>
       <div class="years" id="years"></div>
@@ -287,16 +345,15 @@ const fechaCorta = d => `${d.getDate()} ${MES3[d.getMonth()].toLowerCase()}`;
 function hue(str){ let h = 0; for (const c of str) h = (h*31 + c.charCodeAt(0)) >>> 0; return h % 360; }
 function avatar(name, size = 44){
   const h = hue(name);
-  const ini = name.replace(/[^\p{L}\p{N}\s]/gu,'').split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase() || '♪';
+  const ini = name.replace(/[^\p{L}\p{N}\s]/gu,'').split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase() || '·';
   return `<div class="av" data-ia="${esc(name)}" style="width:${size}px;height:${size}px;font-size:${size*.36}px;background:linear-gradient(135deg,hsl(${h} 85% 62%),hsl(${(h+55)%360} 80% 42%))">${esc(ini)}</div>`;
 }
 function cover(key, size = 40, kind = 't'){
   const h = hue(key);
-  return `<div class="cover" data-i${kind}="${esc(key)}" style="width:${size}px;height:${size}px;background:linear-gradient(135deg,hsl(${h} 70% 55%),hsl(${(h+120)%360} 70% 30%))">♪</div>`;
+  return `<div class="cover" data-i${kind}="${esc(key)}" style="width:${size}px;height:${size}px;background:linear-gradient(135deg,hsl(${h} 70% 55%),hsl(${(h+120)%360} 70% 30%))">${icon('note', Math.round(size*.42), 2)}</div>`;
 }
 let regionNames; try { regionNames = new Intl.DisplayNames(['es'], {type:'region'}); } catch(e) {}
 const countryName = cc => { try { return regionNames.of(cc); } catch(e) { return cc; } };
-const flag = cc => /^[A-Z]{2}$/.test(cc||'') ? String.fromCodePoint(...[...cc].map(c => 127397 + c.charCodeAt(0))) : '🌐';
 function device(pl){
   pl = (pl || '').toLowerCase();
   if (/cast|sonos|speaker|alexa|echo|partner|_tv|smart tv|playstation|xbox/.test(pl)) return 'Parlante / TV';
@@ -306,14 +363,41 @@ function device(pl){
   return 'Otro';
 }
 
+/* Íconos (SVG propios, nada de emojis) */
+const ICONS = {
+  manana: '<path d="M3 18h18M6.5 14.5a5.5 5.5 0 0 1 11 0M12 4.5v3M5 8.5l1.6 1.6M19 8.5l-1.6 1.6"/>',
+  siesta: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',
+  tarde: '<path d="M3 18h18M6.5 14.5a5.5 5.5 0 0 1 11 0M12 3.5v5M9.5 6.5 12 9l2.5-2.5"/>',
+  noche: '<path d="M19.5 14.5A7.5 7.5 0 1 1 9.5 4.5a6 6 0 0 0 10 10z"/>',
+  previa: '<path d="M11 3l1.6 4.4L17 9l-4.4 1.6L11 15l-1.6-4.4L5 9l4.4-1.6z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/>',
+  madrugada: '<path d="M15.5 13.5A6 6 0 1 1 8.5 5a4.8 4.8 0 0 0 7 8.5z"/><path d="M18 3.5v3M16.5 5h3M19.5 10.5v2M18.5 11.5h2"/>',
+  phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+  laptop: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+  speaker: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><circle cx="12" cy="14" r="3.5"/><circle cx="12" cy="6.5" r="1"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  chevL: '<path d="M15 5l-7 7 7 7"/>', chevR: '<path d="M9 5l7 7-7 7"/>',
+  restart: '<path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/>',
+  note: '<path d="M9 18V5l10-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+};
+const icon = (n, s = 18, w = 1.8) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
+const PLAY = s => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg>`;
+const PAUSE = s => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4" height="15" rx="1.2" fill="currentColor"/><rect x="14" y="4.5" width="4" height="15" rx="1.2" fill="currentColor"/></svg>`;
+const LOGO = s => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${s}" height="${s}" aria-hidden="true"><defs><linearGradient id="ymyg3" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fb923c"/><stop offset=".45" stop-color="#ec4899"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><g stroke="url(#ymyg3)" stroke-width="4.4" stroke-linecap="round"><line x1="32.00" y1="19.50" x2="32.00" y2="10.98"/><line x1="38.25" y1="21.17" x2="44.30" y2="10.70"/><line x1="42.83" y1="25.75" x2="51.15" y2="20.95"/><line x1="44.50" y1="32.00" x2="59.23" y2="32.00"/><line x1="42.83" y1="38.25" x2="52.22" y2="43.67"/><line x1="38.25" y1="42.83" x2="46.00" y2="56.25"/><line x1="32.00" y1="44.50" x2="32.00" y2="57.21"/><line x1="25.75" y1="42.83" x2="21.10" y2="50.88"/><line x1="21.17" y1="38.25" x2="9.09" y2="45.23"/><line x1="19.50" y1="32.00" x2="8.34" y2="32.00"/><line x1="21.17" y1="25.75" x2="14.46" y2="21.88"/><line x1="25.75" y1="21.17" x2="19.16" y2="9.76"/></g><circle cx="32" cy="32" r="5.2" fill="none" stroke="#fff" stroke-width="2.6"/></svg>`;
+function spLink(key){
+  const uri = DB.uris.get(key);
+  if (uri && !state.demo && /^spotify:track:/.test(uri)) return 'https://open.spotify.com/track/' + uri.split(':')[2];
+  const [a, t] = key.split(' — ');
+  return 'https://open.spotify.com/search/' + encodeURIComponent(a + ' ' + t);
+}
+
 /* Franjas del día */
 const FRANJAS = [
-  {id:'manana',    name:'Mañana',    range:'6 a 12 h',             emoji:'🌅', g:['#fbbf24','#f97316']},
-  {id:'siesta',    name:'Siesta',    range:'12 a 15 h',            emoji:'☀️', g:['#34d399','#06b6d4']},
-  {id:'tarde',     name:'Tarde',     range:'15 a 20 h',            emoji:'🌇', g:['#fb7185','#f59e0b']},
-  {id:'noche',     name:'Noche',     range:'20 a 24 h',            emoji:'🌙', g:['#818cf8','#6366f1']},
-  {id:'previa',    name:'Previa',    range:'vie y sáb, 22 a 2 h',  emoji:'🪩', g:['#ec4899','#a855f7']},
-  {id:'madrugada', name:'Madrugada', range:'0 a 6 h',              emoji:'🌌', g:['#38bdf8','#1d4ed8']},
+  {id:'manana',    name:'Mañana',    range:'6 a 12 h',             g:['#fbbf24','#f97316']},
+  {id:'siesta',    name:'Siesta',    range:'12 a 15 h',            g:['#34d399','#06b6d4']},
+  {id:'tarde',     name:'Tarde',     range:'15 a 20 h',            g:['#fb7185','#f59e0b']},
+  {id:'noche',     name:'Noche',     range:'20 a 24 h',            g:['#818cf8','#6366f1']},
+  {id:'previa',    name:'Previa',    range:'vie y sáb, 22 a 2 h',  g:['#ec4899','#a855f7']},
+  {id:'madrugada', name:'Madrugada', range:'0 a 6 h',              g:['#38bdf8','#1d4ed8']},
 ];
 const FR = Object.fromEntries(FRANJAS.map(f => [f.id, f]));
 function franjaOf(h, dow){ // dow: 0 = domingo
@@ -400,7 +484,9 @@ function prep(raw){
     let d = byDay.get(p.day); if (!d) byDay.set(p.day, d = []); d.push(p);
   }
   const years = [...new Set(plays.map(p => p.y))].sort();
-  return { plays, firstArtist, firstTrack, uris, byDay, years, last: plays.length ? plays[plays.length-1].s : new Date() };
+  const cc = {}; for (const p of plays) if (p.country) cc[p.country] = (cc[p.country] || 0) + 1;
+  const home = Object.keys(cc).sort((a, b) => cc[b] - cc[a])[0] || '';
+  return { plays, firstArtist, firstTrack, uris, byDay, home, years, last: plays.length ? plays[plays.length-1].s : new Date() };
 }
 
 function agg(list, keyFn){
@@ -593,7 +679,7 @@ function obsession(L){
 /* ============================================================
    Vistas
    ============================================================ */
-function empty(msg){ return `<div class="card" style="text-align:center;padding:60px 20px"><div style="font-size:40px">🎧</div><p class="muted" style="margin-top:10px">${msg}</p></div>`; }
+function empty(msg){ return `<div class="card emptyc">${LOGO(44)}<p class="muted" style="margin-top:12px">${msg}</p></div>`; }
 
 function viewResumen(Y){
   const L = yearData(Y);
@@ -626,13 +712,13 @@ function viewResumen(Y){
   </section>
 
   <div class="grid g4">
-    <div class="card hl" style="--glow:#f97316"><div class="k">🔥 Racha más larga</div><div class="v">${streak.n} días</div>
+    <div class="card hl" style="--glow:#f97316"><div class="k">Racha más larga</div><div class="v">${streak.n} días</div>
       <div class="s">${streak.n ? `del ${fechaCorta(streak.start)} al ${fechaCorta(streak.end)}, sin cortar ni uno` : ''}</div></div>
-    <div class="card hl" style="--glow:#22d3ee"><div class="k">🎧 Sesión más larga</div><div class="v">${fmtDur(sess.ms)}</div>
+    <div class="card hl" style="--glow:#22d3ee"><div class="k">Sesión más larga</div><div class="v">${fmtDur(sess.ms)}</div>
       <div class="s">${sess.start ? `${sess.n} canciones seguidas el ${fechaCorta(sess.start)} desde las ${hhmm(sess.start)}` : ''}</div></div>
-    <div class="card hl" style="--glow:#ec4899;cursor:pointer" data-tab="obsesiones"><div class="k">💘 Tu obsesión</div><div class="v sm">${esc(ob.ref?.track || '—')}</div>
+    <div class="card hl" style="--glow:#ec4899;cursor:pointer" data-tab="obsesiones"><div class="k">Tu obsesión</div><div class="v sm">${esc(ob.ref?.track || '—')}</div>
       <div class="s">${ob.ref ? `${esc(ob.ref.artist)} · ${ob.n} veces en 7 días (desde el ${fechaCorta(ob.from)})` : ''}</div></div>
-    <div class="card hl" style="--glow:#a855f7"><div class="k">⏭️ Índice de impaciencia</div><div class="v">${skipPct.toFixed(0)}%</div>
+    <div class="card hl" style="--glow:#a855f7"><div class="k">Índice de impaciencia</div><div class="v">${skipPct.toFixed(0)}%</div>
       <div class="s">de lo que arrancás lo cortás antes de 30 s.${mostSkipped ? ` La que más salteás: <b style="color:var(--text)">${esc(mostSkipped.ref.track)}</b>` : ''}</div></div>
   </div>
 
@@ -658,15 +744,15 @@ function viewResumen(Y){
       <ol class="rows">${talb.map((a, i) => `<li><span class="n">${i + 1}</span>${cover(a.k, 40, 'al')}
         <div class="grow"><div class="row-t">${esc(a.ref.album)}</div><div class="row-s">${esc(a.ref.artist)}</div></div>
         <span class="num">${fmt(mins(a.ms))} min</span></li>`).join('') || '<p class="muted">Sin datos de álbum.</p>'}</ol></div>
-    <div class="card"><div class="card-h">✨ Descubrimientos</div>
+    <div class="card"><div class="card-h">Descubrimientos</div>
       ${disc.length ? `<ol class="rows">${disc.map(a => `<li>${avatar(a.k, 38)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
         <div class="row-s">primera vez: ${fechaCorta(DB.firstArtist.get(a.k))}</div></div><span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol>`
         : '<p class="muted">Este año no apareció ningún artista nuevo en tu historial.</p>'}</div>
     <div class="card"><div class="card-h">Dónde y en qué</div>
       ${dev.map(d => `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600">
-        <span>${{'Celular':'📱','Computadora':'💻','Parlante / TV':'🔊','Web':'🌐'}[d.k] || '🎵'} ${d.k}</span><span class="num">${(d.ms / total * 100).toFixed(0)}%</span></div>
+        <span class="dev">${icon({'Celular':'phone','Computadora':'laptop','Parlante / TV':'speaker'}[d.k] || 'globe', 17)} ${d.k}</span><span class="num">${(d.ms / total * 100).toFixed(0)}%</span></div>
         <div class="bar"><i style="width:${d.ms / total * 100}%"></i></div></div>`).join('')}
-      ${ctry.length ? `<div class="chips" style="margin-top:16px">${ctry.map(c => `<span class="chip">${flag(c.k)} <b>${esc(countryName(c.k))}</b> ${fmtDur(c.ms)}</span>`).join('')}</div>` : ''}
+      ${ctry.length ? `<div class="chips" style="margin-top:16px">${ctry.map(c => `<span class="chip"><b>${esc(countryName(c.k))}</b> ${fmtDur(c.ms)}</span>`).join('')}</div>` : ''}
     </div>
   </div>`;
 }
@@ -736,78 +822,142 @@ function openMonth(m){
       <div class="row-s">${esc(t.ref.artist)}</div></div><span class="num">${t.n}×</span></li>`).join('')}</ol>`);
 }
 
-function viewCalendario(Y){
-  const L = yearData(Y);
-  if (!L.length) return empty('No hay reproducciones en este año.');
-  const days = agg(L, p => p.day), dm = new Map(days.map(d => [d.k, d.ms]));
+let cal = { mode: 'anio', m: null, day: null };
+const firstKey = () => DB.plays[0].day, lastKey = () => dayKey(DB.last);
+function levelsFor(Y){
+  const ck = 'lv' + Y; if (cache.has(ck)) return cache.get(ck);
+  const days = agg(yearData(Y), p => p.day), dm = new Map(days.map(d => [d.k, d.ms]));
   const vals = days.map(d => d.ms).sort((a, b) => a - b);
   const q = [.2, .4, .6, .8].map(f => vals[Math.floor(f * (vals.length - 1))]);
   const lvl = v => !v ? '' : v <= q[0] ? 'l1' : v <= q[1] ? 'l2' : v <= q[2] ? 'l3' : v <= q[3] ? 'l4' : 'l5';
-  const lastKey = dayKey(DB.last);
-  const top = days.sort(byMs).slice(0, 5);
-  const daysInYear = (Y === DB.last.getFullYear()) ? Math.round((parseDay(lastKey) - new Date(Y, 0, 1)) / 864e5) + 1 : (new Date(Y, 1, 29).getMonth() === 1 ? 366 : 365);
+  const o = { dm, lvl, days }; cache.set(ck, o); return o;
+}
+function calMove(dir){
+  const Y = state.year;
+  if (cal.mode === 'anio') { const i = DB.years.indexOf(Y) + dir; if (DB.years[i]) state.year = DB.years[i]; }
+  else if (cal.mode === 'mes') { const d = new Date(Y, cal.m + dir, 1); state.year = d.getFullYear(); cal.m = d.getMonth(); }
+  else { const d = parseDay(cal.day); d.setDate(d.getDate() + dir); cal.day = dayKey(d); state.year = d.getFullYear(); }
+  render();
+}
+function openDay(k){
+  const d = parseDay(k); if (isNaN(d)) return;
+  cal.mode = 'dia'; cal.day = k; state.year = d.getFullYear();
+  closeSheet();
+  if (location.hash !== '#calendario') location.hash = 'calendario'; else { render(); window.scrollTo(0, 0); }
+}
 
-  const months = Array.from({length:12}, (_, m) => {
-    const first = new Date(Y, m, 1), off = (first.getDay() + 6) % 7, nd = new Date(Y, m + 1, 0).getDate();
-    let cells = DIAS.map(d => `<div class="wd">${d[0]}</div>`).join('') + '<div></div>'.repeat(off);
-    let tot = 0;
-    for (let d = 1; d <= nd; d++) {
-      const k = `${Y}-${pad(m + 1)}-${pad(d)}`, v = dm.get(k) || 0; tot += v;
-      const fut = k > lastKey;
-      cells += `<div class="dcell ${fut ? 'fut' : lvl(v)}"${fut ? '' : ` data-day="${k}"`} title="${d} ${MES3[m]} · ${fmtDur(v)}">${d}</div>`;
-    }
-    return `<div class="card"><div class="card-h"><span style="color:var(--text);letter-spacing:0;text-transform:none;font-size:17px">${MESES[m]}</span><span class="dim" style="text-transform:none;letter-spacing:0">${tot ? Math.round(tot / 3.6e6) + ' h' : ''}</span></div>
-      <div class="cal-m">${cells}</div></div>`;
-  }).join('');
-
+function viewCalendario(Y){
+  if (!yearData(Y).length) return empty('No hay reproducciones en este año.');
+  const isLast = Y === DB.last.getFullYear();
+  if (cal.mode === 'mes' && cal.m == null) cal.m = isLast ? DB.last.getMonth() : 11;
+  if (cal.mode === 'dia' && (!cal.day || +cal.day.slice(0, 4) !== Y)) cal.day = isLast ? lastKey() : `${Y}-12-31`;
+  if (cal.mode === 'dia' && cal.day < firstKey()) cal.day = firstKey();
+  let title, prevOK, nextOK, body;
+  if (cal.mode === 'anio') {
+    const i = DB.years.indexOf(Y); prevOK = i > 0; nextOK = i < DB.years.length - 1;
+    title = String(Y); body = calYear(Y);
+  } else if (cal.mode === 'mes') {
+    const fk = firstKey(), lk = lastKey(), ym = `${Y}-${pad(cal.m + 1)}`;
+    prevOK = ym > fk.slice(0, 7); nextOK = ym < lk.slice(0, 7);
+    title = `${MESES[cal.m]} ${Y}`; body = calMonth(Y, cal.m);
+  } else {
+    prevOK = cal.day > firstKey(); nextOK = cal.day < lastKey();
+    title = fechaLarga(parseDay(cal.day)); body = calDay(cal.day);
+  }
   return `
   <section class="hero" style="padding-bottom:0">
     <div class="eyebrow">${Y} · calendario</div>
-    <h1 style="font-size:clamp(40px,7vw,76px)"><span class="grad2">${dm.size}</span> de ${daysInYear} días con música</h1>
-    <p>Cada cuadradito es un día, y el color dice cuánto escuchaste. Tocá cualquiera para ver qué sonó, en orden.</p>
-    <div class="legend" style="margin-top:16px">Menos <i style="background:rgba(255,255,255,.06)"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i> Más</div>
-  </section>
+    <div class="calbar">
+      <div class="seg">${[['dia', 'Día'], ['mes', 'Mes'], ['anio', 'Año']].map(([k, l]) => `<button data-cal="${k}" class="${cal.mode === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+      <div class="calnav"><button data-calnav="-1" ${prevOK ? '' : 'disabled'} aria-label="Anterior">${icon('chevL')}</button><button data-calnav="1" ${nextOK ? '' : 'disabled'} aria-label="Siguiente">${icon('chevR')}</button></div>
+      <div class="caltitle">${title}</div>
+      ${cal.mode === 'dia' ? `<input type="date" id="calDate" class="datein" min="${firstKey()}" max="${lastKey()}" value="${cal.day}" aria-label="Ir a una fecha">` : ''}
+    </div>
+  </section>${body}`;
+}
+
+function calYear(Y){
+  const { dm, lvl, days } = levelsFor(Y), lk = lastKey();
+  const top = [...days].sort(byMs).slice(0, 5);
+  const daysInYear = Y === DB.last.getFullYear() ? dIdx(Y, DB.last) + 1 : dIdx(Y, new Date(Y, 11, 31)) + 1;
+  const months = Array.from({length: 12}, (_, m) => {
+    const first = new Date(Y, m, 1), off = (first.getDay() + 6) % 7, nd = new Date(Y, m + 1, 0).getDate();
+    let cells = DIAS.map(d => `<div class="wd">${d[0]}</div>`).join('') + '<div></div>'.repeat(off), tot = 0;
+    for (let d = 1; d <= nd; d++) {
+      const k = `${Y}-${pad(m + 1)}-${pad(d)}`, v = dm.get(k) || 0, fut = k > lk; tot += v;
+      cells += `<div class="dcell ${fut ? 'fut' : lvl(v)}"${fut ? '' : ` data-day="${k}"`} title="${d} ${MES3[m]} · ${fmtDur(v)}">${d}</div>`;
+    }
+    return `<div class="card"><div class="card-h mhead" data-calm="${m}"><span style="color:var(--text);letter-spacing:0;text-transform:none;font-size:17px">${MESES[m]}</span><span class="dim" style="text-transform:none;letter-spacing:0">${tot ? Math.round(tot / 3.6e6) + ' h' : ''}</span></div>
+      <div class="cal-m">${cells}</div></div>`;
+  }).join('');
+  return `
+  <p class="sec-sub" style="margin-top:14px"><b style="color:var(--text)">${dm.size} de ${daysInYear} días</b> con música. Tocá un día para ver qué sonó, o el nombre de un mes para verlo grande.</p>
+  <div class="legend" style="margin-top:12px">Menos <i style="background:rgba(255,255,255,.06)"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i> Más</div>
   <div class="cal-grid">${months}</div>
-  <div class="card" style="margin-top:16px"><div class="card-h">🏆 Tus días récord</div>
-    <ol class="rows">${top.map((d, i) => { const dt = parseDay(d.k); return `<li data-day="${d.k}" style="cursor:pointer"><span class="n">${i + 1}</span>
-      <div class="grow"><div class="row-t">${fechaLarga(dt)}</div></div>
-      <span class="num">${fmtDur(d.ms)}</span></li>`; }).join('')}</ol></div>`;
+  <div class="card" style="margin-top:16px"><div class="card-h">Tus días récord</div>
+    <ol class="rows">${top.map((d, i) => `<li data-day="${d.k}" style="cursor:pointer"><span class="n">${i + 1}</span>
+      <div class="grow"><div class="row-t">${fechaLarga(parseDay(d.k))}</div></div><span class="num">${fmtDur(d.ms)}</span></li>`).join('')}</ol></div>`;
 }
 
-function openDay(k){
-  const L = DB.byDay.get(k) || [], dt = parseDay(k);
-  const prev = dayKey(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() - 1));
-  const next = dayKey(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + 1));
-  let body = `<div class="eyebrow">${dt.getFullYear()}</div>
-    <h2>${fechaLarga(dt)}</h2>
-    <div class="nav2"><button data-day="${prev}">← Día anterior</button>${next <= dayKey(DB.last) ? `<button data-day="${next}">Día siguiente →</button>` : ''}</div>`;
-  if (!L.length) return openSheet(body + `<p class="muted" style="margin-top:24px">Este día no sonó nada. 🤫</p>`);
-  const tot = sum(L), sk = L.filter(p => p.skip).length;
-  const top = agg(L, p => p.artist).sort(byMs)[0];
-  body += `<div class="chips"><span class="chip"><b>${fmtDur(tot)}</b></span><span class="chip"><b>${L.filter(p => p.stream).length}</b> canciones</span>
-    <span class="chip"><b>${sk}</b> salteadas</span><span class="chip">de <b>${hhmm(L[0].s)}</b> a <b>${hhmm(L[L.length - 1].end)}</b></span>
-    <span class="chip">más escuchado: <b>${esc(top.k)}</b></span></div>`;
-  let cur = null;
-  body += '<ul class="plays">';
-  for (const p of L) {
-    if (p.fr !== cur) { cur = p.fr; const f = FR[cur]; body += `</ul><div class="frhdr" style="color:${f.g[0]}">${f.emoji} ${f.name}</div><ul class="plays">`; }
-    body += `<li class="${p.skip ? 'sk' : ''}"><span class="tm">${hhmm(p.s)}</span>${cover(p.key, 34)}
-      <div class="grow"><div class="row-t">${esc(p.track)}${p.skip ? '<span class="tag">salteada</span>' : ''}</div><div class="row-s">${esc(p.artist)}${p.country && p.country !== 'AR' ? ` · ${flag(p.country)}` : ''}</div></div>
-      <span class="num">${mmss(p.ms)}</span></li>`;
+function calMonth(Y, m){
+  const { dm, lvl } = levelsFor(Y), lk = lastKey();
+  const first = new Date(Y, m, 1), off = (first.getDay() + 6) % 7, nd = new Date(Y, m + 1, 0).getDate();
+  let cells = DIAS.map(d => `<div class="wd">${d}</div>`).join('') + '<div></div>'.repeat(off);
+  for (let d = 1; d <= nd; d++) {
+    const k = `${Y}-${pad(m + 1)}-${pad(d)}`, v = dm.get(k) || 0, fut = k > lk;
+    const top = v ? agg(DB.byDay.get(k), p => p.artist).sort(byMs)[0].k : '';
+    cells += `<div class="mcell ${fut ? 'fut' : lvl(v)}"${fut ? '' : ` data-day="${k}"`}><div class="dn">${d}</div>${v ? `<div class="dm"><span class="lg">${fmtDur(v)}</span><span class="sm">${Math.floor(v / 3.6e6)}h${pad(Math.round(v / 6e4) % 60)}</span></div><div class="da">${esc(top)}</div>` : ''}</div>`;
   }
-  openSheet(body + '</ul>');
+  const x = monthStats(Y, m);
+  return `
+  <div class="chips" style="margin-top:16px">${x.L.length ? `<span class="chip"><b>${fmtDur(x.ms)}</b> en el mes</span><span class="chip"><b>${x.daily.filter(Boolean).length}</b> días con música</span>
+    <span class="chip">artista del mes: <b>${esc(x.artists[0].k)}</b></span><span class="chip">canción del mes: <b>${esc(x.tracks[0].ref.track)}</b></span>` : '<span class="chip">Sin música este mes</span>'}</div>
+  <div class="card" style="margin-top:16px"><div class="bigcal">${cells}</div></div>`;
 }
 
+function calDay(k){
+  const L = DB.byDay.get(k) || [];
+  if (!L.length) return `<div class="card emptyc" style="margin-top:16px"><p class="muted">Este día no sonó nada.</p></div>`;
+  const tot = sum(L), sk = L.filter(p => p.skip).length;
+  const arts = agg(L, p => p.artist).sort(byMs).slice(0, 5), maxA = arts[0].ms;
+  const frs = FRANJAS.map(f => ({ f, ms: sum(L.filter(p => p.fr === f.id)) })).filter(x => x.ms);
+  let list = '', cur = null;
+  for (const p of L) {
+    if (p.fr !== cur) { cur = p.fr; const f = FR[cur]; list += `<div class="frh" style="color:${f.g[0]}">${icon(f.id, 16)} ${f.name}</div>`; }
+    list += `<a class="prow ${p.skip ? 'sk' : ''}" href="${spLink(p.key)}" target="_blank" rel="noopener" title="Escuchar en Spotify">
+      <span class="tm">${hhmm(p.s)}</span>${cover(p.key, 38)}
+      <div class="grow"><div class="row-t">${esc(p.track)}${p.skip ? '<span class="tag">salteada</span>' : ''}</div>
+        <div class="row-s">${esc(p.artist)}${p.country && p.country !== DB.home ? ` · ${esc(countryName(p.country))}` : ''}</div></div>
+      <span class="num">${mmss(p.ms)}</span><span class="pl">${PLAY(12)}</span></a>`;
+  }
+  return `
+  <div class="chips" style="margin-top:16px"><span class="chip"><b>${fmtDur(tot)}</b></span><span class="chip"><b>${L.filter(p => p.stream).length}</b> canciones</span>
+    <span class="chip"><b>${sk}</b> salteadas</span><span class="chip">de <b>${hhmm(L[0].s)}</b> a <b>${hhmm(L[L.length - 1].end)}</b></span></div>
+  <div class="grid gday">
+    <div class="card"><div class="card-h">Lo que sonó <span class="dim" style="text-transform:none;letter-spacing:0">tocá una canción para escucharla en Spotify</span></div>${list}</div>
+    <div>
+      <div class="card"><div class="card-h">Lo más escuchado</div>
+        <ol class="rows">${arts.map((a, i) => `<li><span class="n">${i + 1}</span>${avatar(a.k, 34)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
+          <div class="bar"><i style="width:${a.ms / maxA * 100}%"></i></div></div><span class="num">${fmtDur(a.ms)}</span></li>`).join('')}</ol></div>
+      <div class="card" style="margin-top:16px"><div class="card-h">Momentos del día</div>
+        ${frs.map(x => `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600">
+          <span class="dev" style="color:${x.f.g[0]}">${icon(x.f.id, 16)}<span style="color:var(--text)">${x.f.name}</span></span><span class="num">${fmtDur(x.ms)}</span></div>
+          <div class="bar"><i style="width:${x.ms / tot * 100}%;background:linear-gradient(90deg,${x.f.g[0]},${x.f.g[1]})"></i></div></div>`).join('')}</div>
+    </div>
+  </div>`;
+}
+
+let horasSel = null;
 function viewHoras(Y){
   const L = yearData(Y);
   if (!L.length) return empty('No hay reproducciones en este año.');
   const total = sum(L);
-  const frs = FRANJAS.map(f => {
-    const l = L.filter(p => p.fr === f.id);
-    return { f, ms: sum(l), artists: agg(l, p => p.artist).sort(byMs).slice(0, 3), track: agg(l, p => p.key).sort(byN)[0] };
-  });
-  const hours = Array(24).fill(0), hourFr = Array.from({length:24}, () => ({}));
-  const heat = Array.from({length:7}, () => Array(24).fill(0));
+  const frs = FRANJAS.map(f => { const l = L.filter(p => p.fr === f.id); return { f, l, ms: sum(l) }; });
+  const sel = frs.find(x => x.f.id === horasSel && x.ms) || frs.reduce((a, b) => b.ms > a.ms ? b : a);
+  const ta = agg(sel.l, p => p.artist).sort(byMs).slice(0, 5), tt = agg(sel.l, p => p.key).sort(byN).slice(0, 5);
+  const maxA = ta[0]?.ms || 1, maxT = tt[0]?.n || 1;
+  const hours = Array(24).fill(0), hourFr = Array.from({length: 24}, () => ({}));
+  const heat = Array.from({length: 7}, () => Array(24).fill(0));
   for (const p of L) { hours[p.h] += p.ms; hourFr[p.h][p.fr] = (hourFr[p.h][p.fr] || 0) + p.ms; heat[(p.dow + 6) % 7][p.h] += p.ms; }
   const hmax = Math.max(...hours), peak = hours.indexOf(hmax);
   const dowTot = heat.map(r => r.reduce((a, b) => a + b, 0)), bestDow = dowTot.indexOf(Math.max(...dowTot));
@@ -818,23 +968,32 @@ function viewHoras(Y){
     return `<rect x="${h * bw + bw * .15}" y="${H - 22 - bh}" width="${bw * .7}" height="${bh}" rx="5" fill="${FR[fr].g[0]}"><title>${h} h · ${fmtDur(v)}</title></rect>
       ${h % 3 === 0 ? `<text x="${h * bw + bw / 2}" y="${H - 5}" text-anchor="middle">${h}h</text>` : ''}`; }).join('')}</svg>`;
   const hm = Math.max(...heat.flat());
-  const heatHTML = `<div class="heat"><div></div>${Array.from({length:24}, (_, h) => `<div class="hl2">${h % 3 === 0 ? h : ''}</div>`).join('')}
+  const heatHTML = `<div class="heat"><div></div>${Array.from({length: 24}, (_, h) => `<div class="hl2">${h % 3 === 0 ? h : ''}</div>`).join('')}
     ${heat.map((r, d) => `<div class="lbl">${DIAS[d]}</div>${r.map((v, h) => { const x = v / hm;
       return `<div class="c" title="${DIAS[d]} ${h} h · ${fmtDur(v)}" style="background:${v ? `hsl(${270 + x * 75} 85% ${22 + x * 42}%)` : 'rgba(255,255,255,.03)'}"></div>`; }).join('')}`).join('')}</div>`;
-
+  const f = sel.f;
   return `
   <section class="hero" style="padding-bottom:0">
     <div class="eyebrow">${Y} · hora del día</div>
     <h1 style="font-size:clamp(40px,7vw,76px)">Tu hora pico: <span class="grad">las ${peak} h</span></h1>
-    <p>Y los <b>${DIAS_LARGO[bestDow]}</b> son tu día de más música. Así cambia lo que escuchás según el momento.</p>
+    <p>Y los <b>${DIAS_LARGO[bestDow]}</b> son tu día de más música. Elegí un momento del día para ver qué escuchás.</p>
   </section>
-  <div class="grid g3">${frs.map(x => `<div class="card fr-card" style="--g1:${x.f.g[0]};--g2:${x.f.g[1]}">
-      <div class="fr-top"><div><div class="fr-name">${x.f.name}</div><div class="fr-range">${x.f.range}</div></div><div class="fr-emoji">${x.f.emoji}</div></div>
-      <div class="fr-pct">${(x.ms / total * 100).toFixed(0)}%</div><div class="muted" style="font-size:13px">${fmt(mins(x.ms))} min de tu año</div>
-      <ol class="rows" style="margin-top:10px">${x.artists.map((a, i) => `<li style="padding:6px 0">${avatar(a.k, 30)}<div class="grow"><div class="row-t" style="font-size:14px">${esc(a.k)}</div></div><span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol>
-      ${x.track ? `<div class="fr-song">La canción de la ${x.f.name.toLowerCase()}<b>${esc(x.track.ref.track)}</b>${esc(x.track.ref.artist)} · ${x.track.n}×</div>` : ''}
-    </div>`).join('')}</div>
-  <div class="card" style="margin-top:16px"><div class="card-h">Minutos por hora <span class="dim" style="text-transform:none;letter-spacing:0">color = franja</span></div>${chart}</div>
+  <div class="fr-tiles">${frs.map(x => `<button class="ftile ${x === sel ? 'on' : ''}" data-fr="${x.f.id}" style="--g1:${x.f.g[0]};--g2:${x.f.g[1]}">
+      <div class="ficon">${icon(x.f.id, 19)}</div><div class="fn">${x.f.name}</div><div class="frg">${x.f.range}</div>
+      <div class="fp">${(x.ms / total * 100).toFixed(0)}%</div></button>`).join('')}</div>
+  <div class="card frdet" style="--g1:${f.g[0]};--g2:${f.g[1]}">
+    <div class="frdet-h"><div class="ficon" style="width:46px;height:46px;border-radius:14px">${icon(f.id, 24)}</div>
+      <div><div class="t">${f.name}</div><div class="muted" style="font-size:14px">${f.range} · ${fmt(mins(sel.ms))} min · ${(sel.ms / total * 100).toFixed(0)}% de tu año</div></div></div>
+    <div class="grid g2" style="margin-top:0">
+      <div><div class="card-h">Top 5 artistas</div>
+        <ol class="rows">${ta.map((a, i) => `<li><span class="n">${i + 1}</span>${avatar(a.k, 38)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
+          <div class="bar"><i style="width:${a.ms / maxA * 100}%;background:linear-gradient(90deg,${f.g[0]},${f.g[1]})"></i></div></div><span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol></div>
+      <div><div class="card-h">Top 5 canciones</div>
+        <ol class="rows">${tt.map((t, i) => `<li data-track="${esc(t.k)}" style="cursor:pointer"><span class="n">${i + 1}</span>${cover(t.k, 38)}<div class="grow"><div class="row-t">${esc(t.ref.track)}</div>
+          <div class="row-s">${esc(t.ref.artist)}</div></div><span class="num">${t.n}×</span></li>`).join('')}</ol></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><div class="card-h">Minutos por hora <span class="dim" style="text-transform:none;letter-spacing:0">color = momento del día</span></div>${chart}</div>
   <div class="card" style="margin-top:16px"><div class="card-h">Día de la semana × hora</div>${heatHTML}</div>`;
 }
 
@@ -879,7 +1038,7 @@ function viewCarrera(Y){
   <div class="card" style="margin-top:22px">
     <div class="race-head">
       <div class="seg" id="raceMode"><button data-mode="artistas">Artistas</button><button data-mode="canciones">Canciones</button></div>
-      <div class="ctrl"><button id="rRestart" title="Desde el principio">↺</button><button id="rPlay" class="play" title="Play / pausa">▶</button><button id="rSpeed" title="Velocidad">${race.speed}×</button></div>
+      <div class="ctrl"><button id="rRestart" title="Desde el principio">${icon('restart', 17, 2)}</button><button id="rPlay" class="play" title="Play / pausa">${PLAY(16)}</button><button id="rSpeed" title="Velocidad">${race.speed}×</button></div>
     </div>
     <div class="race" id="race"></div>
     <input type="range" class="scrub" id="rScrub" min="0" value="0" aria-label="Día del año">
@@ -908,13 +1067,13 @@ function initCarrera(){
 }
 function playRace(){
   if (race.i >= race.data.frames.length - 1) race.i = 0;
-  $('#rPlay').textContent = '❚❚';
+  $('#rPlay').innerHTML = PAUSE(16);
   race.timer = setInterval(() => {
     race.i++; drawFrame(race.i);
     if (race.i >= race.data.frames.length - 1) pauseRace();
   }, 1000 / (12 * race.speed));
 }
-function pauseRace(){ if (race.timer) { clearInterval(race.timer); race.timer = null; } const b = $('#rPlay'); if (b) b.textContent = '▶'; }
+function pauseRace(){ if (race.timer) { clearInterval(race.timer); race.timer = null; } const b = $('#rPlay'); if (b) b.innerHTML = PLAY(16); }
 
 function drawFrame(i){
   const el = $('#race'); if (!el) return pauseRace();
@@ -957,10 +1116,10 @@ function renderRaceStats(data){
   const leaders = [...lead].sort((a, b) => b[1] - a[1]).slice(0, 5), maxL = leaders[0]?.[1] || 1;
   const pic = (k, s) => data.mode === 'artistas' ? avatar(lb(k).t, s) : cover(k, s);
   $('#raceStats').innerHTML = `
-    <div class="card"><div class="card-h">👑 Días en el #1</div>
+    <div class="card"><div class="card-h">Días en el #1</div>
       <ol class="rows">${leaders.map(([k, n], i) => `<li><span class="n">${i + 1}</span>${pic(k, 36)}<div class="grow"><div class="row-t">${name(k)}</div>
         <div class="bar"><i style="width:${n / maxL * 100}%"></i></div></div><span class="num">${n} día${n > 1 ? 's' : ''}</span></li>`).join('')}</ol></div>
-    <div class="card hl" style="--glow:#22d3ee"><div class="k">🔀 La pelea por el primer puesto</div>
+    <div class="card hl" style="--glow:#22d3ee"><div class="k">La pelea por el primer puesto</div>
       <div class="v" style="font-size:48px">${changes}</div><div class="s">veces cambió quién iba primero</div>
       <div class="pair" style="display:flex;gap:12px;align-items:center;margin-top:22px">${pic(firstLeader, 40)}<div><div class="row-s">Arrancó el año adelante</div><div class="row-t">${name(firstLeader)}</div></div></div>
       <div class="pair" style="display:flex;gap:12px;align-items:center;margin-top:12px">${pic(prev, 40)}<div><div class="row-s">${data.Y === DB.last.getFullYear() ? 'Va primero hoy' : 'Terminó primero'}</div><div class="row-t">${name(prev)}</div></div></div>
@@ -1015,7 +1174,8 @@ function areaPath(c, H){
   for (let i = 0; i < c.length; i++) { const y = (H - c[i] / m * (H - 3)).toFixed(1); d += `L${i} ${y}L${i + 1} ${y}`; }
   return d + `L${c.length} ${H}Z`;
 }
-const ST = { curso: '🔥 En curso', soltaste: '👋 La soltaste', sigue: '🔁 Sigue sonando' };
+const ST = { curso: ['En curso', '#f97316'], soltaste: ['La soltaste', '#a855f7'], sigue: ['Sigue sonando', '#22d3ee'], nueva: ['Recién descubierta', '#facc15'] };
+const stChip = k => `<span class="st"><i style="background:${ST[k][1]}"></i>${ST[k][0]}</span>`;
 
 function viewObsesiones(Y){
   if (!yearData(Y).length) return empty('No hay reproducciones en este año.');
@@ -1031,11 +1191,11 @@ function viewObsesiones(Y){
   const monthX = Array.from({length: 12}, (_, m) => dIdx(Y, new Date(Y, m, 1)));
   return hero(obs.length) + `
   <div class="grid g3">
-    <div class="card hl" style="--glow:#ec4899;cursor:pointer" data-track="${esc(intensa.key)}"><div class="k">⚡ La más intensa</div><div class="v sm">${esc(intensa.ref.track)}</div>
+    <div class="card hl" style="--glow:#ec4899;cursor:pointer" data-track="${esc(intensa.key)}"><div class="k">La más intensa</div><div class="v sm">${esc(intensa.ref.track)}</div>
       <div class="s">${esc(intensa.ref.artist)} · <b style="color:var(--text)">${intensa.peak} veces en 7 días</b></div></div>
-    <div class="card hl" style="--glow:#f97316;cursor:pointer" data-track="${esc(larga.key)}"><div class="k">⏳ La que más duró</div><div class="v sm">${esc(larga.ref.track)}</div>
+    <div class="card hl" style="--glow:#f97316;cursor:pointer" data-track="${esc(larga.key)}"><div class="k">La que más duró</div><div class="v sm">${esc(larga.ref.track)}</div>
       <div class="s">${esc(larga.ref.artist)} · <b style="color:var(--text)">${larga.e - larga.s + 1} días</b> en loop (${fechaCorta(d0(larga.s))} – ${fechaCorta(d0(larga.e))})</div></div>
-    <div class="card hl" style="--glow:#a855f7"><div class="k">👋 Las que soltaste</div><div class="v">${solt} de ${obs.length}</div>
+    <div class="card hl" style="--glow:#a855f7"><div class="k">Las que soltaste</div><div class="v">${solt} de ${obs.length}</div>
       <div class="s">las escuchaste a full y después casi no volvieron a sonar</div></div>
   </div>
   <div class="card" style="margin-top:16px">
@@ -1045,7 +1205,7 @@ function viewObsesiones(Y){
       return `<div class="ob-row" data-track="${esc(o.key)}">
         <div class="ob-meta">${cover(o.key, 46)}<div class="grow"><div class="row-t">${esc(o.ref.track)}</div><div class="row-s">${esc(o.ref.artist)}</div>
           <div class="ob-info">${fechaCorta(d0(o.s))} – ${fechaCorta(d0(o.e))} · <b style="color:var(--text)">${o.during}×</b> en ${o.e - o.s + 1} días</div>
-          <div class="sts"><span class="st">${ST[o.status]}</span>${o.isNew ? '<span class="st">✨ Recién descubierta</span>' : ''}</div></div></div>
+          <div class="sts">${stChip(o.status)}${o.isNew ? stChip('nueva') : ''}</div></div></div>
         <svg class="ob-svg" viewBox="0 0 ${nd} 50" preserveAspectRatio="none">
           <defs><clipPath id="obc${i}"><rect x="${o.s}" y="0" width="${o.e - o.s + 1}" height="50"/></clipPath>
             <linearGradient id="obg${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h} 90% 66%)"/><stop offset="1" stop-color="hsl(${(h + 40) % 360} 90% 55%)" stop-opacity=".35"/></linearGradient></defs>
@@ -1067,8 +1227,9 @@ function openTrack(key){
     <div class="chips"><span class="chip"><b>${L.filter(p => p.stream).length}</b> veces en ${Y}</span><span class="chip"><b>${fmtDur(sum(L))}</b></span>
       <span class="chip">${L.filter(p => p.skip).length} salteadas</span>
       <span class="chip">primera vez: <b>${DB.firstTrack.get(key).toLocaleDateString('es-AR', {day:'numeric', month:'short', year:'numeric'})}</b></span>
-      <span class="chip">suena más a la <b>${fr.name.toLowerCase()}</b> ${fr.emoji}</span></div>
-    ${ob ? `<div class="card" style="margin-top:18px;padding:16px"><b>💘 Obsesión</b> del ${fechaCorta(d0(ob.s))} al ${fechaCorta(d0(ob.e))}: <b>${ob.during} veces</b> en ${ob.e - ob.s + 1} días. <span class="muted">${ST[ob.status]}</span></div>` : ''}
+      <span class="chip">suena más a la <b>${fr.name.toLowerCase()}</b></span></div>
+    <a class="btn sp" href="${spLink(key)}" target="_blank" rel="noopener">${PLAY(14)} Escuchar en Spotify</a>
+    ${ob ? `<div class="card" style="margin-top:18px;padding:16px"><b>Obsesión</b> del ${fechaCorta(d0(ob.s))} al ${fechaCorta(d0(ob.e))}: <b>${ob.during} veces</b> en ${ob.e - ob.s + 1} días. <span class="sts" style="display:inline-flex;margin:0 0 0 6px">${stChip(ob.status)}</span></div>` : ''}
     <div class="frhdr muted">Veces por día <span class="dim" style="text-transform:none;letter-spacing:0;font-weight:500">· tocá una barra para ver ese día</span></div>
     ${sparkSVG(c, `hsl(${hue(key)} 85% 62%)`, i => dayKey(d0(i))).replace('class="spark"', 'class="spark" style="height:90px"')}`);
 }
@@ -1168,7 +1329,7 @@ function render(){
   pauseRace();
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
   $('#years').innerHTML = DB.years.map(y => `<button data-year="${y}" class="${y === state.year ? 'on' : ''}">${y}</button>`).join('');
-  $('#view').innerHTML = `<div class="view">${VIEWS[tab](state.year)}<p class="foot">Wrapped by JC · tus datos nunca salen de este navegador · imágenes de Spotify y Deezer</p></div>`;
+  $('#view').innerHTML = `<div class="view">${VIEWS[tab](state.year)}<p class="foot">Your musical year · tus datos nunca salen de este navegador · imágenes de Spotify y Deezer</p></div>`;
   if (tab === 'carrera') initCarrera();
   hydrate($('#view'));
 }
@@ -1205,7 +1366,7 @@ async function loadFiles(files){
     if (!raw.length) throw new Error('No encontré archivos de historial (Streaming_History_Audio_*.json) en lo que subiste.');
     start(raw, false);
   } catch (e) {
-    $('#err').textContent = '⚠️ ' + e.message; $('#err').hidden = false;
+    $('#err').textContent = e.message; $('#err').hidden = false;
   } finally { hideLoading(); }
 }
 
@@ -1221,14 +1382,19 @@ $('#demo').addEventListener('click', () => {
 $('#reload').addEventListener('click', () => { $('#app').hidden = true; $('#landing').hidden = false; $('#file').value = ''; });
 window.addEventListener('hashchange', () => { if (DB) { closeSheet(); render(); window.scrollTo(0, 0); } });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+document.addEventListener('change', e => { if (e.target.id === 'calDate' && e.target.value) openDay(e.target.value); });
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-close]');
+  const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.tab) { location.hash = t.dataset.tab; return; }
   if (t.dataset.year) { state.year = +t.dataset.year; render(); return; }
   if (t.dataset.day) return openDay(t.dataset.day);
   if (t.dataset.track) return openTrack(t.dataset.track);
+  if (t.dataset.cal) { cal.mode = t.dataset.cal; render(); return; }
+  if (t.dataset.calnav) { if (!t.disabled) calMove(+t.dataset.calnav); return; }
+  if (t.dataset.calm !== undefined) { cal.mode = 'mes'; cal.m = +t.dataset.calm; render(); window.scrollTo(0, 0); return; }
+  if (t.dataset.fr) { horasSel = t.dataset.fr; render(); return; }
   if (t.dataset.m !== undefined) return openMonth(+t.dataset.m);
 });
 </script>
