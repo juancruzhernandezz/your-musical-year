@@ -1472,7 +1472,8 @@ function base(c, glow, Y){
   c.fillStyle = rg; c.fillRect(0, 0, SW, SH);
   drawMark(c, 80, 110, 76); c.textBaseline = 'middle';
   c.fillStyle = '#f5f5f7'; font(c, 700, 38); c.fillText('Your musical year', 176, 148);
-  c.fillStyle = '#8e8e93'; font(c, 600, 36); c.textAlign = 'right'; c.fillText(String(Y), SW - 80, 148);
+  const bw = c.measureText('Your musical year').width;
+  c.fillStyle = '#8e8e93'; font(c, 600, 38); c.fillText(`· ${Y}`, 176 + bw + 14, 148);
   c.textAlign = 'center'; c.fillStyle = '#8e8e93'; font(c, 500, 30);
   const site = /github\.io$/.test(location.host) ? (location.host + location.pathname).replace(/\/(index\.html)?$/, '') : 'Your musical year';
   c.fillText(site, SW / 2, SH - 96); c.textAlign = 'left'; c.textBaseline = 'alphabetic';
