@@ -347,6 +347,11 @@ input.scrub{accent-color:var(--accent)}
 .storyshare{background:#fff;color:#000;gap:8px}
 .story-hint{font-size:13px;color:var(--muted)}
 .story-loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:15px}
+.ysel{position:relative;display:inline-flex;align-items:center}
+.ysel select{appearance:none;-webkit-appearance:none;background:transparent;border:0;color:var(--text);font:inherit;font-weight:600;font-size:15px;padding:6px 32px 6px 14px;cursor:pointer;border-radius:8px}
+.ysel select:focus-visible{outline:2px solid var(--accent)}
+.ysel select option{background:#1c1c1e;color:#f5f5f7}
+.ysel .ic{position:absolute;right:11px;pointer-events:none;color:var(--muted)}
 /* barra de pestañas inferior (celular) */
 .bnav{display:none}
 @media(max-width:700px){
@@ -469,11 +474,12 @@ let regionNames; try { regionNames = new Intl.DisplayNames(['es'], {type:'region
 const countryName = cc => { try { return regionNames.of(cc); } catch(e) { return cc; } };
 function device(pl){
   pl = (pl || '').toLowerCase();
-  if (/cast|sonos|speaker|alexa|echo|partner|_tv|smart tv|playstation|xbox/.test(pl)) return 'Parlante / TV';
+  if (/tizen|webos|android_tv|_tv|smart ?tv|roku|tvos|apple ?tv|fire ?tv|playstation|ps4|ps5|xbox|sony_tv/.test(pl)) return 'TV y consola';
+  if (/cast|sonos|speaker|alexa|echo|google home|homepod|partner/.test(pl)) return 'Parlante';
   if (/ios|android|iphone|ipad/.test(pl)) return 'Celular';
   if (/web|chrome|browser|firefox|safari/.test(pl)) return 'Web';
   if (/windows|os x|osx|mac|linux/.test(pl)) return 'Computadora';
-  return 'Otro';
+  return 'Sin dato';
 }
 
 /* Íconos (SVG propios, nada de emojis) */
@@ -487,6 +493,8 @@ const ICONS = {
   phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
   laptop: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
   speaker: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><circle cx="12" cy="14" r="3.5"/><circle cx="12" cy="6.5" r="1"/>',
+  tv: '<rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 20.5h8M12 17v3.5"/>',
+  chevD: '<path d="M6 9l6 6 6-6"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   chevL: '<path d="M15 5l-7 7 7 7"/>', chevR: '<path d="M9 5l7 7-7 7"/>',
   restart: '<path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/>',
@@ -568,7 +576,7 @@ function normalize(r){
     if (!r.master_metadata_track_name) return null;   // podcasts y registros vacíos
     return { end: new Date(r.ts), ms: r.ms_played || 0, track: r.master_metadata_track_name,
       artist: r.master_metadata_album_artist_name || 'Desconocido', album: r.master_metadata_album_album_name || '',
-      uri: r.spotify_track_uri, country: r.conn_country || '', platform: r.platform || '',
+      uri: r.spotify_track_uri, country: r.conn_country && r.conn_country !== 'ZZ' ? r.conn_country : '', platform: r.platform || '',
       skipped: r.skipped === true, shuffle: r.shuffle === true, reasonStart: r.reason_start, reasonEnd: r.reason_end };
   }
   if (r.endTime !== undefined) {          // "Account data" (último año)
@@ -820,7 +828,7 @@ function viewResumen(Y){
   const talb = agg(L.filter(p => p.album), p => p.artist + '|' + p.album).sort(byMs).slice(0, 5);
   const disc = artists.filter(a => DB.firstArtist.get(a.k).getFullYear() === Y && DB.firstArtist.get(a.k) > DB.plays[0].s)
                       .sort(byMs).slice(0, 5);
-  const dev = agg(L, p => device(p.platform)).sort(byMs);
+  const dev = agg(L, p => device(p.platform)).filter(d => d.ms / total >= .005).sort(byMs);
   const ctry = agg(L.filter(p => p.country), p => p.country).sort(byMs);
 
   return `
@@ -872,7 +880,7 @@ function viewResumen(Y){
         : '<p class="muted">Este año no apareció ningún artista nuevo en tu historial.</p>'}</div>
     <div class="card"><div class="card-h">Dónde y en qué</div>
       ${dev.map(d => `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600">
-        <span class="dev">${icon({'Celular':'phone','Computadora':'laptop','Parlante / TV':'speaker'}[d.k] || 'globe', 17)} ${d.k}</span><span class="num">${(d.ms / total * 100).toFixed(0)}%</span></div>
+        <span class="dev">${icon({'Celular':'phone','Computadora':'laptop','Parlante':'speaker','TV y consola':'tv'}[d.k] || 'globe', 17)} ${d.k}</span><span class="num">${(d.ms / total * 100).toFixed(0)}%</span></div>
         <div class="bar"><i style="width:${d.ms / total * 100}%"></i></div></div>`).join('')}
       ${ctry.length ? `<div class="chips" style="margin-top:16px">${ctry.map(c => `<span class="chip"><b>${esc(countryName(c.k))}</b> ${fmtDur(c.ms)}</span>`).join('')}</div>` : ''}
     </div>
@@ -1625,7 +1633,9 @@ function render(){
   state.tab = tab;
   pauseRace();
   document.querySelectorAll('#tabs button, #bnav button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
-  $('#years').innerHTML = DB.years.map(y => `<button data-year="${y}" class="${y === state.year ? 'on' : ''}">${y}</button>`).join('');
+  $('#years').innerHTML = DB.years.length > 4
+    ? `<label class="ysel"><select id="yearSel" aria-label="Año">${DB.years.slice().reverse().map(y => `<option value="${y}" ${y === state.year ? 'selected' : ''}>${y}</option>`).join('')}</select>${icon('chevD', 14, 2.4)}</label>`
+    : DB.years.map(y => `<button data-year="${y}" class="${y === state.year ? 'on' : ''}">${y}</button>`).join('');
   $('#view').innerHTML = `<div class="view">${VIEWS[tab](state.year)}<p class="foot">Your musical year · tus datos nunca salen de este navegador · imágenes de Spotify y Deezer</p></div>`;
   if (tab === 'carrera') initCarrera();
   hydrate($('#view'));
@@ -1684,7 +1694,10 @@ document.addEventListener('keydown', e => {
   if (!$('#story').hidden) { if (e.key === 'Escape') closeStory(); if (e.key === 'ArrowRight') storyGo(story.i + 1); if (e.key === 'ArrowLeft') storyGo(story.i - 1); return; }
   if (e.key === 'Escape') closeSheet();
 });
-document.addEventListener('change', e => { if (e.target.id === 'calDate' && e.target.value) openDay(e.target.value); });
+document.addEventListener('change', e => {
+  if (e.target.id === 'calDate' && e.target.value) openDay(e.target.value);
+  if (e.target.id === 'yearSel') { state.year = +e.target.value; render(); }
+});
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close],[data-story],[data-story-close],[data-story-nav]');
   if (!t) return;
