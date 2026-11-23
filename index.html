@@ -563,14 +563,15 @@ const FRANJAS = [
   {id:'manana',    name:'Mañana',    range:'6 a 12 h',             g:['#fbbf24','#f97316'], t:'#fbbf24'},
   {id:'siesta',    name:'Siesta',    range:'12 a 15 h',            g:['#2dd4bf','#0ea5e9'], t:'#2dd4bf'},
   {id:'tarde',     name:'Tarde',     range:'15 a 20 h',            g:['#a3e635','#16a34a'], t:'#a3e635'},
-  {id:'noche',     name:'Noche',     range:'20 a 24 h',            g:['#818cf8','#6366f1'], t:'#818cf8'},
+  {id:'noche',     name:'Noche',     range:'20 a 3 h',              g:['#818cf8','#6366f1'], t:'#818cf8'},
   {id:'previa',    name:'Previa',    range:'vie y sáb, 23 a 3 h',  g:['#ff453a','#b4000f'], t:'#ff6961'},
-  {id:'madrugada', name:'Madrugada', range:'0 a 6 h',              g:['#312e81','#0b1033'], t:'#8b93d8'},
+  {id:'madrugada', name:'Madrugada', range:'3 a 6 h',              g:['#312e81','#0b1033'], t:'#8b93d8'},
 ];
 const FR = Object.fromEntries(FRANJAS.map(f => [f.id, f]));
 function franjaOf(h, dow){ // dow: 0 = domingo
   if ((dow === 5 || dow === 6) && h >= 23) return 'previa';
   if ((dow === 6 || dow === 0) && h < 3) return 'previa';
+  if (h < 3) return 'noche';          // de 0 a 3, fuera de la previa, sigue siendo noche
   if (h < 6) return 'madrugada';
   if (h < 12) return 'manana';
   if (h < 15) return 'siesta';
@@ -771,7 +772,7 @@ function generateDemo(){
       if (rnd() < .45) add(R(12.5, 14.5), R(15, 40), rnd() < .5 ? 'Windows 10 (10.0.19045; x64)' : 'ios');
       if (rnd() < .6)  add(R(15.5, 19), R(30, 95), rnd() < .5 ? 'Windows 10 (10.0.19045; x64)' : 'ios');
       if (rnd() < .6)  add(R(20.5, 23.2), R(20, 75), rnd() < .45 ? 'OS X 14.5 [arm 2]' : 'ios');
-      if (rnd() < .06) add(R(.3, 3), R(15, 45), 'ios');
+      if (rnd() < .06) add(R(3, 5), R(15, 45), 'ios');
     } else {
       if (rnd() < .55) add(R(10, 12.5), R(20, 60), 'ios');
       if (rnd() < .5)  add(R(15, 19), R(30, 100), rnd() < .3 ? 'Partner google cast_tv' : 'ios');
