@@ -1,6 +1,6 @@
 <p align="center"><img src="logo.svg" width="110" alt=""></p>
 
-# Your musical year
+# Tu Año Musical
 
 Tu historial de Spotify, contado mejor: mes por mes, día por día y hora por hora.
 
