@@ -352,6 +352,27 @@ input.scrub{accent-color:var(--accent)}
 .ysel select:focus-visible{outline:2px solid var(--accent)}
 .ysel select option{background:#1c1c1e;color:#f5f5f7}
 .ysel .ic{position:absolute;right:11px;pointer-events:none;color:var(--muted)}
+.herobtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.herobtns .storybtn{margin-top:0}
+.videobtn{gap:10px}
+.videoic{display:inline-flex}
+.vid{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);display:grid;place-items:center;padding:16px 16px calc(16px + env(safe-area-inset-bottom));overflow-y:auto}
+.vid-box{position:relative;display:flex;gap:32px;align-items:center;max-width:980px;width:100%}
+.vid-frame{position:relative;height:min(78vh,calc((100vw - 32px) * 16 / 9));aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#111;flex:none}
+.vid-frame canvas,.vid-frame video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.vid-side{flex:1;min-width:0}
+.vid-side h3{font-size:32px;font-weight:800;letter-spacing:-.03em;margin:4px 0 10px}
+.vid-side p{font-size:15px;line-height:1.5}
+.vbar{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin:18px 0 4px}
+.vbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s linear}
+.vopt{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:15px;cursor:pointer}
+.vopt input{width:18px;height:18px;accent-color:var(--accent)}
+.vid-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.vid-actions .btn{gap:8px}
+.vid-actions .primary{background:var(--accent);color:#fff}
+.vtip{margin-top:18px;font-size:13px;color:var(--muted);line-height:1.5}
+.vid-x{position:absolute;top:-6px;right:-6px}
+@media(max-width:760px){.vid{place-items:start center}.vid-box{flex-direction:column;gap:16px}.vid-frame{height:min(62vh,calc((100vw - 32px) * 16 / 9))}.vid-side{text-align:center}.vid-actions,.vopt{justify-content:center}.vid-x{top:0;right:0}.vid-side h3{font-size:26px}}
 /* barra de pestañas inferior (celular) */
 .bnav{display:none}
 @media(max-width:700px){
@@ -435,7 +456,22 @@ input.scrub{accent-color:var(--accent)}
     <button class="story-x" data-story-close aria-label="Cerrar">×</button>
     <div class="story-tap prev" data-story-nav="-1"></div><div class="story-tap next" data-story-nav="1"></div>
   </div>
-  <div class="story-actions"><button class="btn storyshare" id="storyShare"></button><span class="story-hint" id="storyHint"></span></div>
+  <div class="story-actions"><div style="display:flex;gap:10px"><button class="btn storyshare" id="storyShare"></button><button class="btn ghost" data-video><span class="videoic"></span>Crear video</button></div><span class="story-hint" id="storyHint"></span></div>
+</div>
+<div class="vid" id="vid" hidden>
+  <div class="vid-box">
+    <button class="story-x vid-x" data-vid-close aria-label="Cerrar">×</button>
+    <div class="vid-frame" id="vidFrame"></div>
+    <div class="vid-side">
+      <div class="eyebrow" id="vidYear"></div>
+      <h3>Tu año en video</h3>
+      <p class="muted" id="vidStatus">Un video vertical de unos 35 segundos, listo para historias o reels.</p>
+      <div class="vbar" id="vidBar" hidden><i id="vidProg"></i></div>
+      <label class="vopt" id="vidOpt"><input type="checkbox" id="vidMusic" checked> Música original de fondo</label>
+      <div class="vid-actions" id="vidActions"></div>
+      <p class="vtip" id="vidTip"></p>
+    </div>
+  </div>
 </div>
 <div id="loading" hidden><div><div class="spin"></div><div id="loadingTxt">Cargando…</div></div></div>
 
@@ -499,6 +535,7 @@ const ICONS = {
   chevL: '<path d="M15 5l-7 7 7 7"/>', chevR: '<path d="M9 5l7 7-7 7"/>',
   restart: '<path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/>',
   note: '<path d="M9 18V5l10-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+  video: '<rect x="3" y="5.5" width="13" height="13" rx="2.5"/><path d="M16 10.5l5-3v9l-5-3"/>',
   share: '<path d="M12 3.5v11M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',
   tabResumen: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
   tabMeses: '<path d="M5 20V11M10 20V5M15 20v-7M20 20V8"/>',
@@ -838,7 +875,8 @@ function viewResumen(Y){
     <p>Son <b>${(total / 864e5).toLocaleString('es-AR', {maximumFractionDigits:1})} días enteros</b> de música:
       <b>${fmt(streams)}</b> reproducciones, <b>${fmt(tracks.length)}</b> canciones distintas y <b>${fmt(artists.length)}</b> artistas.
       Tu día récord fue el <b>${parseDay(topDay.k).toLocaleDateString('es-AR', {weekday:'long', day:'numeric', month:'long'})}</b>, con ${fmtDur(topDay.ms)}.</p>
-    <button class="btn storybtn" data-story><span class="shareic"></span>Ver tu año en historias</button>
+    <div class="herobtns"><button class="btn storybtn" data-story><span class="shareic"></span>Ver tu año en historias</button>
+    <button class="btn ghost videobtn" data-video><span class="videoic"></span>Crear video</button></div>
   </section>
 
   <div class="grid g4">
@@ -1623,6 +1661,263 @@ async function shareStory(){
 $('#storyShare').addEventListener('click', shareStory);
 
 /* ============================================================
+   Video del año (1080 × 1920, ~35 s)
+   Escenas animadas en un canvas que se graban con MediaRecorder.
+   La música es original: se genera en el navegador con Web Audio.
+   ============================================================ */
+const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+const enter = (lt, d, len = .55) => ease((lt - d) / len);
+function anim(c, a, dy, fn){ if (a <= 0) return; c.save(); c.globalAlpha *= a; c.translate(0, (1 - a) * dy); fn(); c.restore(); }
+let vid = { rec: null, raf: null, ac: null, url: null, blob: null, ext: 'mp4' };
+
+async function videoData(Y){
+  const L = yearData(Y), total = sum(L), streams = L.filter(p => p.stream).length;
+  const arts = agg(L, p => p.artist).sort(byMs), trks = agg(L, p => p.key).sort(byN);
+  const frs = FRANJAS.map(f => { const l = L.filter(p => p.fr === f.id); return { f, l, ms: sum(l) }; }).sort((a, b) => b.ms - a.ms);
+  const topFr = frs[0], frArt = agg(topFr.l, p => p.artist).sort(byMs)[0];
+  const hours = Array(24).fill(0), months = Array(12).fill(0);
+  for (const p of L) { hours[p.h] += p.ms; months[p.m] += p.ms; }
+  const peak = hours.indexOf(Math.max(...hours)), bestM = months.indexOf(Math.max(...months));
+  const obsList = findObsessions(Y), ob = obsList.length ? obsList.reduce((a, b) => b.peak > a.peak ? b : a) : null;
+  const isNew = a => { const f = DB.firstArtist.get(a.k); return f.getFullYear() === Y && f > DB.plays[0].s; };
+  const news = arts.filter(isNew), disc = news[0] || null;
+  const [aImgs, tImgs, obImg, discImg] = await Promise.all([
+    Promise.all(arts.slice(0, 5).map(a => imgFor('a', a.k))),
+    Promise.all(trks.slice(0, 5).map(t => imgFor('t', t.k))),
+    ob ? imgFor('t', ob.key) : null, disc ? imgFor('a', disc.k) : null]);
+  return { Y, L, total, streams, arts, trks, topFr, frArt, peak, months, bestM, ob, disc, news: news.length,
+    streak: longestStreak(L), sess: longestSession(L), aImgs, tImgs, obImg, discImg, artistsN: arts.length };
+}
+
+function drawMarkAnim(c, cx, cy, size, prog){
+  const k = size / 64; c.save(); c.translate(cx - size / 2, cy - size / 2); c.scale(k, k);
+  const g = c.createLinearGradient(6, 6, 58, 58); g.addColorStop(0, '#ff8fa6'); g.addColorStop(.45, '#ff375f'); g.addColorStop(1, '#d6215c');
+  c.strokeStyle = g; c.lineWidth = 4.4; c.lineCap = 'round';
+  LOGO_L.forEach((l, i) => { const e = ease(prog * 2.2 - i * .09); if (e <= 0) return;
+    const a = (i * 30 - 90) * Math.PI / 180, r0 = 12.5, r1 = r0 + l * 15.5 * e;
+    c.beginPath(); c.moveTo(32 + r0 * Math.cos(a), 32 + r0 * Math.sin(a)); c.lineTo(32 + r1 * Math.cos(a), 32 + r1 * Math.sin(a)); c.stroke(); });
+  c.globalAlpha *= ease(prog * 2 - .4); c.beginPath(); c.arc(32, 32, 5.2, 0, Math.PI * 2); c.lineWidth = 2.6; c.strokeStyle = '#fff'; c.stroke(); c.restore();
+}
+function bg(c, glow, lt){
+  c.fillStyle = '#000'; c.fillRect(0, 0, SW, SH);
+  const y = SH * (.34 + Math.sin(lt * .6) * .02);
+  const rg = c.createRadialGradient(SW * .5, y, 0, SW * .5, y, SW * 1.1);
+  rg.addColorStop(0, glow + '70'); rg.addColorStop(.55, glow + '1a'); rg.addColorStop(1, glow + '00');
+  c.fillStyle = rg; c.fillRect(0, 0, SW, SH);
+}
+function head(c, Y){ c.save(); drawMark(c, 80, 110, 76); c.textBaseline = 'middle'; c.fillStyle = '#f5f5f7'; font(c, 700, 38); c.fillText('Your musical year', 176, 148);
+  const bw = c.measureText('Your musical year').width; c.fillStyle = '#8e8e93'; font(c, 600, 38); c.fillText(`· ${Y}`, 176 + bw + 14, 148); c.restore(); }
+function countTxt(v, f){ return f ? f(v) : fmt(v); }
+
+function videoScenes(D){
+  const Y = D.Y, A = D.arts, T = D.trks, S = [];
+  S.push({ d: 2.8, draw(c, lt){ bg(c, '#ff375f', lt);
+    drawMarkAnim(c, SW / 2, 780, 380, lt / 1.6);
+    anim(c, enter(lt, .9), 40, () => { c.textAlign = 'center'; c.fillStyle = '#f5f5f7'; font(c, 800, 92); c.fillText('Your musical year', SW / 2, 1130); });
+    anim(c, enter(lt, 1.3), 40, () => { c.textAlign = 'center'; c.fillStyle = '#ff375f'; font(c, 800, 150); c.fillText(String(Y), SW / 2, 1310); });
+    c.textAlign = 'left'; } });
+  S.push({ d: 3.8, draw(c, lt){ bg(c, '#ff375f', lt); head(c, Y);
+    anim(c, enter(lt, .1), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText(`Tu ${Y} en música`, 90, 660); });
+    const v = mins(D.total) * ease(lt / 2.2); c.fillStyle = '#ff375f'; const n = fmt(v); fitSize(c, fmt(mins(D.total)), 800, 300, SW - 180, 120); c.fillText(n, 82, 940);
+    anim(c, enter(lt, .5), 30, () => { c.fillStyle = '#f5f5f7'; font(c, 700, 90); c.fillText('minutos', 90, 1065); });
+    anim(c, enter(lt, 1.9), 30, () => { c.fillStyle = '#c7c7cc'; font(c, 500, 50);
+      wrapLines(c, `Son ${(D.total / 864e5).toLocaleString('es-AR', {maximumFractionDigits: 1})} días enteros de música y ${fmt(D.artistsN)} artistas distintos.`, SW - 180, 3).forEach((l, i) => c.fillText(l, 90, 1210 + i * 70)); });
+  } });
+  S.push({ d: 4.0, draw(c, lt){ bg(c, '#ff9f0a', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu artista del año', 90, 380); });
+    const s = ease(lt / .8); c.save(); c.translate(SW / 2, 800); c.scale(.7 + .3 * s, .7 + .3 * s); c.globalAlpha = s;
+    picture(c, D.aImgs[0], -330, -330, 660, 660, 330, initials(A[0].k)); c.restore();
+    anim(c, enter(lt, .6), 50, () => { c.textAlign = 'center'; c.fillStyle = '#f5f5f7'; fitSize(c, A[0].k, 800, 124, SW - 160, 60); c.fillText(A[0].k, SW / 2, 1290); });
+    anim(c, enter(lt, 1.0), 40, () => { c.textAlign = 'center'; c.fillStyle = '#ff9f0a'; font(c, 700, 56); c.fillText(`${fmt(mins(A[0].ms))} minutos juntos`, SW / 2, 1390); });
+    anim(c, enter(lt, 1.4), 40, () => { c.textAlign = 'center'; c.fillStyle = '#8e8e93'; font(c, 500, 44); c.fillText(`${fmt(A[0].n)} reproducciones`, SW / 2, 1465); });
+    c.textAlign = 'left'; } });
+  S.push({ d: 3.8, draw(c, lt){ bg(c, '#ff9f0a', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu top 5 de artistas', 90, 400); });
+    const mx = A[0].ms;
+    A.slice(0, 5).forEach((a, i) => anim(c, enter(lt, .25 + i * .18), 60, () => { const y = 500 + i * 250;
+      c.fillStyle = i ? '#636366' : '#ff9f0a'; font(c, 800, 64); c.fillText(i + 1, 90, y + 120);
+      picture(c, D.aImgs[i], 170, y + 20, 180, 180, 90, initials(a.k));
+      c.fillStyle = '#f5f5f7'; font(c, 700, 54); c.fillText(fit(c, a.k, SW - 480), 390, y + 92);
+      const w = (SW - 480) * (a.ms / mx) * ease((lt - .5 - i * .18) / .9);
+      c.fillStyle = 'rgba(255,255,255,.1)'; rrect(c, 390, y + 128, SW - 480, 14, 7); c.fill();
+      c.fillStyle = i ? '#f5f5f7' : '#ff9f0a'; rrect(c, 390, y + 128, Math.max(14, w), 14, 7); c.fill();
+      c.fillStyle = '#8e8e93'; font(c, 500, 38); c.fillText(`${fmt(mins(a.ms))} min`, 390, y + 200); })); } });
+  S.push({ d: 4.2, draw(c, lt){ bg(c, '#30d158', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Las canciones de tu año', 90, 400); });
+    T.slice(0, 5).forEach((t, i) => anim(c, enter(lt, .25 + i * .2), 60, () => { const y = 480 + i * 255;
+      c.fillStyle = i ? '#636366' : '#30d158'; font(c, 800, 64); c.fillText(i + 1, 90, y + 130);
+      picture(c, D.tImgs[i], 175, y + 20, 205, 205, 24);
+      c.fillStyle = '#f5f5f7'; font(c, 700, 52); c.fillText(fit(c, t.ref.track, SW - 510), 420, y + 105);
+      c.fillStyle = '#8e8e93'; font(c, 500, 40); c.fillText(fit(c, `${t.ref.artist} · ${t.n} veces`, SW - 510), 420, y + 165); })); } });
+  S.push({ d: 3.8, draw(c, lt){ bg(c, '#ff375f', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu año, mes a mes', 90, 400); });
+    const mx = Math.max(...D.months, 1), bw = (SW - 180) / 12, base = 1380, H = 700;
+    D.months.forEach((v, m) => { const h = Math.max(v ? 10 : 0, v / mx * H * ease((lt - .2 - m * .07) / .8));
+      c.fillStyle = m === D.bestM ? '#ff375f' : 'rgba(255,255,255,.22)'; rrect(c, 90 + m * bw + bw * .14, base - h, bw * .72, h, 14); c.fill();
+      c.fillStyle = m === D.bestM ? '#f5f5f7' : '#8e8e93'; font(c, 600, 34); c.textAlign = 'center'; c.fillText(MES3[m][0], 90 + m * bw + bw / 2, base + 56); c.textAlign = 'left'; });
+    anim(c, enter(lt, 1.4), 40, () => { c.fillStyle = '#f5f5f7'; font(c, 800, 76); c.fillText(`Tu mes: ${MESES[D.bestM].toLowerCase()}`, 90, 1580);
+      c.fillStyle = '#8e8e93'; font(c, 500, 44); c.fillText(`${Math.round(D.months[D.bestM] / 3.6e6)} horas de música`, 90, 1650); }); } });
+  S.push({ d: 3.8, draw(c, lt){ const f = D.topFr.f; bg(c, f.g[0], lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu momento del día', 90, 560); });
+    anim(c, enter(lt, .3), 60, () => { c.fillStyle = f.t; fitSize(c, f.name, 800, 230, SW - 180, 100); c.fillText(f.name, 82, 800); c.fillStyle = '#c7c7cc'; font(c, 500, 50); c.fillText(f.range, 90, 890); });
+    const pct = D.topFr.ms / D.total * 100 * ease((lt - .6) / 1.4);
+    anim(c, enter(lt, .6), 30, () => { c.fillStyle = '#f5f5f7'; font(c, 800, 170); c.fillText(`${pct.toFixed(0)}%`, 84, 1120); c.fillStyle = '#8e8e93'; font(c, 500, 46); c.fillText('de todo lo que escuchaste', 90, 1195); });
+    anim(c, enter(lt, 1.6), 40, () => { c.fillStyle = '#8e8e93'; font(c, 500, 40); c.fillText('Hora pico', 90, 1340); c.fillStyle = '#f5f5f7'; font(c, 700, 60); c.fillText(`las ${D.peak} h`, 90, 1410);
+      if (D.frArt) { c.fillStyle = '#8e8e93'; font(c, 500, 40); c.fillText(`Tu artista de la ${f.name.toLowerCase()}`, 90, 1530); c.fillStyle = '#f5f5f7'; font(c, 700, 60); c.fillText(fit(c, D.frArt.k, SW - 180), 90, 1600); } }); } });
+  if (D.ob) S.push({ d: 3.8, draw(c, lt){ const o = D.ob; bg(c, '#bf5af2', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu obsesión', 90, 380); });
+    const s = ease(lt / .8); c.save(); c.translate(SW / 2, 760); c.rotate((1 - s) * -.08); c.scale(.75 + .25 * s, .75 + .25 * s); c.globalAlpha = s;
+    picture(c, D.obImg, -320, -320, 640, 640, 36); c.restore();
+    anim(c, enter(lt, .6), 50, () => { c.fillStyle = '#f5f5f7'; fitSize(c, o.ref.track, 800, 100, SW - 180, 52); c.fillText(fit(c, o.ref.track, SW - 180), 88, 1200); c.fillStyle = '#c7c7cc'; font(c, 500, 48); c.fillText(fit(c, o.ref.artist, SW - 180), 90, 1272); });
+    anim(c, enter(lt, 1.1), 30, () => { const n = Math.round(o.peak * ease((lt - 1.1) / 1.2)); c.fillStyle = '#bf5af2'; font(c, 800, 180); c.fillText(n, 84, 1510);
+      const w = c.measureText(String(o.peak)).width; c.fillStyle = '#f5f5f7'; font(c, 700, 56); c.fillText('veces', 110 + w, 1455); c.fillStyle = '#8e8e93'; font(c, 500, 44); c.fillText('en una sola semana', 110 + w, 1512); }); } });
+  if (D.disc) S.push({ d: 3.4, draw(c, lt){ const a = D.disc; bg(c, '#64d2ff', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu descubrimiento del año', 90, 400); });
+    const s = ease(lt / .8); c.save(); c.translate(SW / 2, 780); c.scale(.7 + .3 * s, .7 + .3 * s); c.globalAlpha = s; picture(c, D.discImg, -280, -280, 560, 560, 280, initials(a.k)); c.restore();
+    anim(c, enter(lt, .6), 50, () => { c.textAlign = 'center'; c.fillStyle = '#f5f5f7'; fitSize(c, a.k, 800, 116, SW - 160, 56); c.fillText(a.k, SW / 2, 1200);
+      c.fillStyle = '#64d2ff'; font(c, 600, 48); c.fillText(`lo escuchaste por primera vez el ${fechaCorta(DB.firstArtist.get(a.k))}`, SW / 2, 1290); });
+    anim(c, enter(lt, 1.2), 40, () => { c.textAlign = 'center'; c.fillStyle = '#8e8e93'; font(c, 500, 44); c.fillText(`y ${fmt(mins(a.ms))} minutos después, acá está`, SW / 2, 1370);
+      c.fillStyle = '#f5f5f7'; font(c, 700, 52); c.fillText(`${D.news} artistas nuevos este año`, SW / 2, 1520); });
+    c.textAlign = 'left'; } });
+  S.push({ d: 3.4, draw(c, lt){ bg(c, '#ff9f0a', lt); head(c, Y);
+    anim(c, enter(lt, .05), 30, () => { c.fillStyle = '#8e8e93'; font(c, 600, 50); c.fillText('Tu racha', 90, 560); });
+    const n = Math.round(D.streak.n * ease((lt - .2) / 1.5)); c.fillStyle = '#ff9f0a'; font(c, 800, 330); c.fillText(n, 70, 900);
+    anim(c, enter(lt, .4), 30, () => { c.fillStyle = '#f5f5f7'; font(c, 700, 76); c.fillText('días seguidos', 90, 1010); c.fillText('con música', 90, 1095); });
+    anim(c, enter(lt, 1.5), 40, () => { c.fillStyle = '#8e8e93'; font(c, 500, 42); c.fillText('Tu sesión más larga', 90, 1300); c.fillStyle = '#f5f5f7'; font(c, 700, 70); c.fillText(fmtDur(D.sess.ms), 90, 1385);
+      c.fillStyle = '#8e8e93'; font(c, 500, 40); c.fillText(`${D.sess.n} canciones sin parar`, 90, 1450); }); } });
+  S.push({ d: 4.8, draw(c, lt){ bg(c, '#ff375f', lt); head(c, Y);
+    anim(c, enter(lt, .05), 40, () => { c.fillStyle = '#f5f5f7'; font(c, 800, 100); c.fillText(`Mi ${Y}`, 88, 400); c.fillStyle = '#8e8e93'; font(c, 500, 46); c.fillText('en música', 92, 472); });
+    const W2 = (SW - 180 - 30) / 2, cells = [[90, 560, SW - 180, 'Minutos escuchados', fmt(mins(D.total)), '#ff375f'], [90, 840, W2, 'Artista', A[0].k], [120 + W2, 840, W2, 'Canción', T[0].ref.track],
+      [90, 1120, W2, 'Momento del día', D.topFr.f.name, D.topFr.f.t], [120 + W2, 1120, W2, 'Racha', `${D.streak.n} días`], [90, 1400, SW - 180, 'Obsesión', D.ob ? D.ob.ref.track : '—', '#bf5af2']];
+    cells.forEach(([x, y, w, k, v, col], i) => anim(c, enter(lt, .3 + i * .12), 50, () => { c.fillStyle = '#1c1c1e'; rrect(c, x, y, w, 250, 36); c.fill();
+      c.fillStyle = '#8e8e93'; font(c, 500, 36); c.fillText(k, x + 40, y + 76); c.fillStyle = col || '#f5f5f7'; fitSize(c, v, 800, 72, w - 80, 36); c.fillText(fit(c, v, w - 80), x + 40, y + 180); }));
+    anim(c, enter(lt, 1.6), 20, () => { c.textAlign = 'center'; c.fillStyle = '#8e8e93'; font(c, 500, 34);
+      const site = /github\.io$/.test(location.host) ? (location.host + location.pathname).replace(/\/(index\.html)?$/, '') : 'Your musical year';
+      c.fillText(`Hacé el tuyo en ${site}`, SW / 2, SH - 110); c.textAlign = 'left'; }); } });
+  let t = 0; for (const sc of S) { sc.t0 = t; t += sc.d; }
+  return { S, dur: t };
+}
+function drawVideoFrame(c, V, t){
+  const sc = V.S.find(s => t < s.t0 + s.d) || V.S[V.S.length - 1], lt = Math.min(t - sc.t0, sc.d);
+  c.save(); c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.globalAlpha = 1; sc.draw(c, lt); c.restore();
+  const i = V.S.indexOf(sc), fin = i > 0 ? Math.max(0, 1 - lt / .28) : 0, fout = Math.max(0, 1 - (sc.d - lt) / .28);
+  const a = Math.max(fin, i === V.S.length - 1 ? Math.max(0, (lt - (sc.d - .6)) / .6) : fout);
+  if (a > 0) { c.fillStyle = `rgba(0,0,0,${a})`; c.fillRect(0, 0, SW, SH); }
+}
+
+/* música original (Am – F – C – G, 104 bpm) */
+function scheduleMusic(ac, out, dur){
+  const t0 = ac.currentTime + .08, beat = 60 / 104, bar = beat * 4, hz = m => 440 * Math.pow(2, (m - 69) / 12);
+  const master = ac.createGain(); master.connect(out);
+  master.gain.setValueAtTime(0, t0); master.gain.linearRampToValueAtTime(.8, t0 + 1.2);
+  master.gain.setValueAtTime(.8, t0 + dur - 2.2); master.gain.linearRampToValueAtTime(0, t0 + dur);
+  const comp = ac.createDynamicsCompressor(); comp.connect(master);
+  const noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); const nd = noise.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+  const chords = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];
+  const env = (g, st, a, peak, d) => { g.gain.setValueAtTime(0, st); g.gain.linearRampToValueAtTime(peak, st + a); g.gain.exponentialRampToValueAtTime(.0001, st + a + d); };
+  for (let b = 0; b * bar < dur; b++) {
+    const ch = chords[b % 4], st = t0 + b * bar, en = st + bar;
+    for (const m of ch) for (const det of [-7, 7]) {
+      const o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
+      o.type = 'sawtooth'; o.frequency.value = hz(m); o.detune.value = det; f.type = 'lowpass'; f.frequency.value = 1100;
+      g.gain.setValueAtTime(0, st); g.gain.linearRampToValueAtTime(.022, st + .35); g.gain.setValueAtTime(.022, en - .2); g.gain.linearRampToValueAtTime(0, en);
+      o.connect(f).connect(g).connect(comp); o.start(st); o.stop(en + .05);
+    }
+    for (let q = 0; q < 8; q++) {                       // bajo y arpegio en corcheas
+      const ts = st + q * beat / 2;
+      if (q % 2 === 0) { const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = hz(ch[0] - 24); env(g, ts, .01, .32, beat * .8); o.connect(g).connect(comp); o.start(ts); o.stop(ts + beat); }
+      if (b >= 1) { const o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain(); o.type = 'square'; o.frequency.value = hz(ch[[0, 1, 2, 1][q % 4]] + 12 + (q >= 4 ? 12 : 0));
+        f.type = 'lowpass'; f.frequency.value = 2400; env(g, ts, .005, .045, .22); o.connect(f).connect(g).connect(comp); o.start(ts); o.stop(ts + .3); }
+    }
+    if (b >= 1) for (let q = 0; q < 4; q++) {           // batería
+      const ts = st + q * beat;
+      if (q % 2 === 0) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(140, ts); o.frequency.exponentialRampToValueAtTime(45, ts + .12); env(g, ts, .002, .9, .25); o.connect(g).connect(comp); o.start(ts); o.stop(ts + .3); }
+      else { const n = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); n.buffer = noise; f.type = 'bandpass'; f.frequency.value = 1800; env(g, ts, .002, .28, .14); n.connect(f).connect(g).connect(comp); n.start(ts); n.stop(ts + .2); }
+      for (const h of [0, .5]) { const th = ts + h * beat, n = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); n.buffer = noise; f.type = 'highpass'; f.frequency.value = 7500; env(g, th, .001, .07, .05); n.connect(f).connect(g).connect(comp); n.start(th); n.stop(th + .08); }
+    }
+  }
+}
+
+function pickMime(){
+  if (typeof MediaRecorder === 'undefined') return null;
+  // H.264 + AAC en MP4 es lo que acepta Instagram: se prueba primero
+  for (const m of ['video/mp4;codecs=avc1.640028,mp4a.40.2', 'video/mp4;codecs=avc1.4d002a,mp4a.40.2', 'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+                   'video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4;codecs=avc3,mp4a.40.2', 'video/mp4;codecs=avc1',
+                   'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'])
+    if (MediaRecorder.isTypeSupported(m)) return m;
+  return null;
+}
+function vidActions(html){ $('#vidActions').innerHTML = html; }
+function openVideo(){
+  if (!DB || !yearData(state.year).length) return;
+  closeSheet(); pauseRace();
+  if (vid.url) { URL.revokeObjectURL(vid.url); vid.url = null; }
+  $('#vidYear').textContent = String(state.year);
+  $('#vidFrame').innerHTML = '<div class="story-loading">Preparando…</div>';
+  $('#vidBar').hidden = true; $('#vidOpt').hidden = false;
+  $('#vidStatus').textContent = 'Un video vertical de unos 35 segundos con tus artistas, canciones y momentos del año. Listo para historias o reels.';
+  $('#vidTip').textContent = 'Tip: al subirlo a Instagram podés sumarle tu canción #1 con el sticker de música.';
+  const mime = pickMime();
+  if (!mime) { vidActions(''); $('#vidStatus').textContent = 'Este navegador no puede grabar video. Probá con Chrome o Safari actualizados.'; $('#vidOpt').hidden = true; }
+  else vidActions(`<button class="btn primary" id="vidGo">${icon('video', 17, 2)} Crear video</button>`);
+  $('#vid').hidden = false; document.body.style.overflow = 'hidden';
+  videoData(state.year).then(D => { vid.D = D; vid.V = videoScenes(D);
+    const cv = document.createElement('canvas'); cv.width = SW; cv.height = SH; $('#vidFrame').innerHTML = ''; $('#vidFrame').appendChild(cv);
+    drawVideoFrame(cv.getContext('2d'), vid.V, vid.V.S[vid.V.S.length - 1].t0 + 2.6); vid.cv = cv; });
+}
+function closeVideo(){
+  cancelAnimationFrame(vid.raf); try { vid.rec && vid.rec.state !== 'inactive' && vid.rec.stop(); } catch (e) {}
+  vid.cancel = true; try { vid.ac && vid.ac.close(); } catch (e) {}
+  $('#vid').hidden = true; document.body.style.overflow = '';
+}
+async function recordVideo(){
+  const music = $('#vidMusic').checked, mime = pickMime();
+  let ac = null;
+  if (music) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); ac.resume(); } catch (e) { ac = null; } }   // dentro del clic, para que el navegador lo permita
+  vid.cancel = false; vid.ac = ac;
+  vidActions(''); $('#vidOpt').hidden = true; $('#vidBar').hidden = false; $('#vidProg').style.width = '0';
+  $('#vidStatus').textContent = 'Preparando fotos y datos…';
+  while (!vid.V) await new Promise(r => setTimeout(r, 100));
+  const V = vid.V, cv = vid.cv, c = cv.getContext('2d');
+  const stream = cv.captureStream(30);
+  if (ac) { const dest = ac.createMediaStreamDestination(); scheduleMusic(ac, dest, V.dur + .3); stream.addTrack(dest.stream.getAudioTracks()[0]); }
+  const chunks = [], rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 9e6, audioBitsPerSecond: 160e3 });
+  vid.rec = rec; vid.ext = mime.includes('mp4') ? 'mp4' : 'webm';
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  const done = new Promise(r => rec.onstop = r);
+  $('#vidStatus').textContent = 'Grabando tu video… dejá esta pestaña abierta.';
+  rec.start(500);
+  const t0 = performance.now();
+  await new Promise(res => { const tick = now => { if (vid.cancel) return res();
+      const t = (now - t0) / 1000; drawVideoFrame(c, V, Math.min(t, V.dur));
+      $('#vidProg').style.width = Math.min(100, t / V.dur * 100) + '%';
+      $('#vidStatus').textContent = `Grabando tu video… ${Math.max(0, Math.ceil(V.dur - t))} s. Dejá esta pestaña abierta.`;
+      if (t >= V.dur + .25) return res(); vid.raf = requestAnimationFrame(tick); };
+    vid.raf = requestAnimationFrame(tick); });
+  if (vid.cancel) return;
+  rec.stop(); await done; try { ac && ac.close(); } catch (e) {}
+  vid.blob = new Blob(chunks, { type: mime.split(';')[0] });
+  vid.url = URL.createObjectURL(vid.blob);
+  $('#vidFrame').innerHTML = `<video src="${vid.url}" controls playsinline loop autoplay></video>`;
+  $('#vidBar').hidden = true;
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [new File([vid.blob], 'v.' + vid.ext, { type: vid.blob.type })] }));
+  const safari = vid.ext === 'mp4' && /Safari/.test(navigator.userAgent) && !/Chrome|Chromium|Edg/.test(navigator.userAgent);
+  const h264 = safari || (/avc/.test(mime) && (/mp4a/.test(mime) || !ac));
+  $('#vidStatus').textContent = h264 ? `Listo: ${Math.round(V.dur)} segundos en MP4, 1080 × 1920.`
+    : `Listo, pero este navegador lo guarda en un formato que Instagram puede rechazar. Si no lo acepta, crealo desde Safari (Mac o iPhone) o Chrome actualizado.`;
+  vidActions(`${canShare ? `<button class="btn primary" id="vidShare">${icon('share', 16, 2)} Compartir</button>` : ''}
+    <button class="btn ${canShare ? 'ghost' : 'primary'}" id="vidDl">Descargar</button><button class="btn ghost" id="vidAgain">${icon('restart', 16, 2)} Grabar de nuevo</button>`);
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('#vidGo,#vidShare,#vidDl,#vidAgain'); if (!b) return;
+  if (b.id === 'vidGo') return recordVideo();
+  if (b.id === 'vidAgain') { $('#vidFrame').innerHTML = ''; $('#vidFrame').appendChild(vid.cv); $('#vidOpt').hidden = false; vidActions(`<button class="btn primary" id="vidGo">${icon('video', 17, 2)} Crear video</button>`); $('#vidStatus').textContent = 'Listo para grabar otra vez.'; return; }
+  const name = `your-musical-year-${state.year}.${vid.ext}`;
+  if (b.id === 'vidShare') { try { await navigator.share({ files: [new File([vid.blob], name, { type: vid.blob.type })], title: 'Your musical year' }); } catch (err) {} return; }
+  const a = document.createElement('a'); a.href = vid.url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+});
+
+/* ============================================================
    App
    ============================================================ */
 const TABS = [['resumen', 'Resumen', 'tabResumen'], ['meses', 'Meses', 'tabMeses'], ['calendario', 'Calendario', 'tabCal'], ['horas', 'Horas', 'tabHoras'], ['carrera', 'Carrera', 'tabCarrera'], ['obsesiones', 'Obsesiones', 'tabObs']];
@@ -1638,6 +1933,8 @@ function render(){
     : DB.years.map(y => `<button data-year="${y}" class="${y === state.year ? 'on' : ''}">${y}</button>`).join('');
   $('#view').innerHTML = `<div class="view">${VIEWS[tab](state.year)}<p class="foot">Your musical year · tus datos nunca salen de este navegador · imágenes de Spotify y Deezer</p></div>`;
   if (tab === 'carrera') initCarrera();
+  document.querySelectorAll('#view .shareic').forEach(el => el.innerHTML = icon('share', 16, 2));
+  document.querySelectorAll('#view .videoic').forEach(el => el.innerHTML = icon('video', 17, 2));
   hydrate($('#view'));
 }
 
@@ -1687,10 +1984,12 @@ $('#demo').addEventListener('click', () => {
   setTimeout(() => { try { start(generateDemo(), true); } finally { hideLoading(); } }, 40);
 });
 document.querySelectorAll('.shareic').forEach(el => el.innerHTML = icon('share', 16, 2));
+document.querySelectorAll('.videoic').forEach(el => el.innerHTML = icon('video', 17, 2));
 $('#bnav').innerHTML = TABS.map(([k, l, ic]) => `<button data-tab="${k}">${icon(ic, 23, 1.7)}<span>${l}</span></button>`).join('');
 $('#reload').addEventListener('click', () => { $('#app').hidden = true; $('#landing').hidden = false; $('#file').value = ''; });
 window.addEventListener('hashchange', () => { if (DB) { closeSheet(); render(); window.scrollTo(0, 0); } });
 document.addEventListener('keydown', e => {
+  if (!$('#vid').hidden) { if (e.key === 'Escape') closeVideo(); return; }
   if (!$('#story').hidden) { if (e.key === 'Escape') closeStory(); if (e.key === 'ArrowRight') storyGo(story.i + 1); if (e.key === 'ArrowLeft') storyGo(story.i - 1); return; }
   if (e.key === 'Escape') closeSheet();
 });
@@ -1699,10 +1998,12 @@ document.addEventListener('change', e => {
   if (e.target.id === 'yearSel') { state.year = +e.target.value; render(); }
 });
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close],[data-story],[data-story-close],[data-story-nav]');
+  const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close],[data-story],[data-story-close],[data-story-nav],[data-video],[data-vid-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.story !== undefined) return openStory();
+  if (t.dataset.video !== undefined) { closeStory(); return openVideo(); }
+  if (t.dataset.vidClose !== undefined) return closeVideo();
   if (t.dataset.storyClose !== undefined) return closeStory();
   if (t.dataset.storyNav) return storyGo(story.i + +t.dataset.storyNav);
   if (t.dataset.tab) { if (location.hash === '#' + t.dataset.tab) { closeSheet(); render(); window.scrollTo({top: 0, behavior: 'smooth'}); } else location.hash = t.dataset.tab; return; }
