@@ -373,6 +373,9 @@ input.scrub{accent-color:var(--accent)}
 .vtip{margin-top:18px;font-size:13px;color:var(--muted);line-height:1.5}
 .vid-x{position:absolute;top:-6px;right:-6px}
 @media(max-width:760px){.vid{place-items:start center}.vid-box{flex-direction:column;gap:16px}.vid-frame{height:min(62vh,calc((100vw - 32px) * 16 / 9))}.vid-side{text-align:center}.vid-actions,.vopt{justify-content:center}.vid-x{top:0;right:0}.vid-side h3{font-size:26px}}
+.seg.mini button{padding:4px 10px;font-size:12px}
+.card-h .seg.mini{flex:none}
+.frhdr .seg.mini{text-transform:none;letter-spacing:0}
 /* barra de pestañas inferior (celular) */
 .bnav{display:none}
 @media(max-width:700px){
@@ -844,6 +847,13 @@ function obsession(L){
 /* ============================================================
    Vistas
    ============================================================ */
+/* Ranking de artistas: por minutos o por reproducciones (elección compartida en toda la app) */
+let artMetric = 'ms';
+try { if (localStorage.getItem('artMetric') === 'n') artMetric = 'n'; } catch (e) {}
+const artSort = (a, b) => artMetric === 'n' ? byN(a, b) : byMs(a, b);
+const artV = a => artMetric === 'n' ? a.n : a.ms;
+const artLbl = a => artMetric === 'n' ? `${fmt(a.n)} repr.` : `${fmt(mins(a.ms))} min`;
+const artSeg = () => `<div class="seg mini" role="group" aria-label="Ordenar artistas"><button data-am="ms" class="${artMetric === 'ms' ? 'on' : ''}">Minutos</button><button data-am="n" class="${artMetric === 'n' ? 'on' : ''}">Reproducciones</button></div>`;
 const pageHead = (Y, t, sub) => `<header class="phead"><div class="eyebrow">${Y}</div><h1>${t}</h1>${sub ? `<p>${sub}</p>` : ''}</header>`;
 function empty(msg){ return `<div class="card emptyc">${LOGO(44)}<p class="muted" style="margin-top:12px">${msg}</p></div>`; }
 
@@ -860,9 +870,10 @@ function viewResumen(Y){
   const skipPct = L.filter(p => p.skip).length / L.length * 100;
   const mostSkipped = tracks.filter(t => t.plays >= 8).sort((a, b) => b.skips / b.plays - a.skips / a.plays)[0];
 
-  const ta = artists.sort(byMs).slice(0, 10), maxA = ta[0].ms;
+  const ta = [...artists].sort(artSort).slice(0, 10), maxA = artV(ta[0]) || 1;
   const tt = tracks.sort(byN).slice(0, 10);
   const talb = agg(L.filter(p => p.album), p => p.artist + '|' + p.album).sort(byMs).slice(0, 5);
+  artists.sort(byMs);
   const disc = artists.filter(a => DB.firstArtist.get(a.k).getFullYear() === Y && DB.firstArtist.get(a.k) > DB.plays[0].s)
                       .sort(byMs).slice(0, 5);
   const dev = agg(L, p => device(p.platform)).filter(d => d.ms / total >= .005).sort(byMs);
@@ -892,12 +903,12 @@ function viewResumen(Y){
 
   <div class="grid g2">
     <div class="card">
-      <div class="card-h">Top artistas <span class="dim">por minutos</span></div>
+      <div class="card-h">Top artistas ${artSeg()}</div>
       <div class="top1">${avatar(ta[0].k, 84)}<div style="min-width:0"><div class="rank">#1</div><div class="t1">${esc(ta[0].k)}</div>
         <div class="muted" style="margin-top:4px">${fmt(mins(ta[0].ms))} min · ${fmt(ta[0].n)} reproducciones</div></div></div>
       <ol class="rows">${ta.slice(1).map((a, i) => `<li><span class="n">${i + 2}</span>${avatar(a.k, 38)}
-        <div class="grow"><div class="row-t">${esc(a.k)}</div><div class="bar"><i style="width:${a.ms / maxA * 100}%"></i></div></div>
-        <span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol>
+        <div class="grow"><div class="row-t">${esc(a.k)}</div><div class="bar"><i style="width:${artV(a) / maxA * 100}%"></i></div></div>
+        <span class="num">${artLbl(a)}</span></li>`).join('')}</ol>
     </div>
     <div class="card">
       <div class="card-h">Top canciones <span class="dim">por reproducciones</span></div>
@@ -968,10 +979,12 @@ function viewMeses(Y){
       ${sparkSVG(x.daily, 'rgba(255,255,255,.32)')}</div>`; }).join('')}</div>`;
 }
 
+let lastMonth = null;
 function openMonth(m){
   const Y = state.year, x = monthStats(Y, m);
   if (!x.L.length) return;
-  const maxA = x.artists[0].ms;
+  lastMonth = m;
+  const ma = [...x.artists].sort(artSort).slice(0, 10), maxA = artV(ma[0]) || 1;
   openSheet(`
     <div class="eyebrow">${Y}</div><h2 style="color:${MCOL(m)}">${MESES[m]}</h2>
     <div class="chips"><span class="chip"><b>${fmt(mins(x.ms))}</b> min</span><span class="chip"><b>${fmt(x.L.filter(p => p.stream).length)}</b> reproducciones</span>
@@ -979,9 +992,9 @@ function openMonth(m){
     <div class="nav2">${m > 0 ? `<button data-m="${m - 1}">← ${MESES[m - 1]}</button>` : ''}${m < 11 ? `<button data-m="${m + 1}">${MESES[m + 1]} →</button>` : ''}</div>
     <div class="frhdr muted">Día por día <span class="dim" style="text-transform:none;letter-spacing:0;font-weight:500">· tocá una barra</span></div>
     ${sparkSVG(x.daily, MCOL(m), i => `${Y}-${pad(m + 1)}-${pad(i + 1)}`).replace('class="spark"', 'class="spark" style="height:80px"')}
-    <div class="frhdr muted">Top 10 artistas</div>
-    <ol class="rows">${x.artists.slice(0, 10).map((a, i) => `<li><span class="n">${i + 1}</span>${avatar(a.k, 36)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
-      <div class="bar"><i style="width:${a.ms / maxA * 100}%"></i></div></div><span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol>
+    <div class="frhdr muted" style="display:flex;justify-content:space-between;align-items:center;gap:8px">Top 10 artistas ${artSeg()}</div>
+    <ol class="rows">${ma.map((a, i) => `<li><span class="n">${i + 1}</span>${avatar(a.k, 36)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
+      <div class="bar"><i style="width:${artV(a) / maxA * 100}%"></i></div></div><span class="num">${artLbl(a)}</span></li>`).join('')}</ol>
     <div class="frhdr muted">Top 10 canciones</div>
     <ol class="rows">${x.tracks.slice(0, 10).map((t, i) => `<li><span class="n">${i + 1}</span>${cover(t.k, 36)}<div class="grow"><div class="row-t">${esc(t.ref.track)}</div>
       <div class="row-s">${esc(t.ref.artist)}</div></div><span class="num">${t.n}×</span></li>`).join('')}</ol>`);
@@ -1118,8 +1131,8 @@ function viewHoras(Y){
   const total = sum(L);
   const frs = FRANJAS.map(f => { const l = L.filter(p => p.fr === f.id); return { f, l, ms: sum(l) }; });
   const sel = frs.find(x => x.f.id === horasSel && x.ms) || frs.reduce((a, b) => b.ms > a.ms ? b : a);
-  const ta = agg(sel.l, p => p.artist).sort(byMs).slice(0, 5), tt = agg(sel.l, p => p.key).sort(byN).slice(0, 5);
-  const maxA = ta[0]?.ms || 1, maxT = tt[0]?.n || 1;
+  const ta = agg(sel.l, p => p.artist).sort(artSort).slice(0, 5), tt = agg(sel.l, p => p.key).sort(byN).slice(0, 5);
+  const maxA = (ta[0] && artV(ta[0])) || 1, maxT = tt[0]?.n || 1;
   const hours = Array(24).fill(0), hourFr = Array.from({length: 24}, () => ({}));
   const heat = Array.from({length: 7}, () => Array(24).fill(0));
   for (const p of L) { hours[p.h] += p.ms; hourFr[p.h][p.fr] = (hourFr[p.h][p.fr] || 0) + p.ms; heat[(p.dow + 6) % 7][p.h] += p.ms; }
@@ -1135,9 +1148,9 @@ function viewHoras(Y){
     <div class="frdet-h"><div class="ficon" style="width:46px;height:46px;border-radius:14px">${icon(f.id, 24)}</div>
       <div><div class="t">${f.name}</div><div class="muted" style="font-size:14px">${f.range} · ${fmt(mins(sel.ms))} min · ${(sel.ms / total * 100).toFixed(0)}% de tu año</div></div></div>
     <div class="grid g2" style="margin-top:0">
-      <div><div class="card-h">Top 5 artistas</div>
+      <div><div class="card-h">Top 5 artistas ${artSeg()}</div>
         <ol class="rows">${ta.map((a, i) => `<li><span class="n">${i + 1}</span>${avatar(a.k, 38)}<div class="grow"><div class="row-t">${esc(a.k)}</div>
-          <div class="bar"><i style="width:${a.ms / maxA * 100}%;background:${f.t}"></i></div></div><span class="num">${fmt(mins(a.ms))} min</span></li>`).join('')}</ol></div>
+          <div class="bar"><i style="width:${artV(a) / maxA * 100}%;background:${f.t}"></i></div></div><span class="num">${artLbl(a)}</span></li>`).join('')}</ol></div>
       <div><div class="card-h">Top 5 canciones</div>
         <ol class="rows">${tt.map((t, i) => `<li data-track="${esc(t.k)}" style="cursor:pointer"><span class="n">${i + 1}</span>${cover(t.k, 38)}<div class="grow"><div class="row-t">${esc(t.ref.track)}</div>
           <div class="row-s">${esc(t.ref.artist)}</div></div><span class="num">${t.n}×</span></li>`).join('')}</ol></div>
@@ -1998,9 +2011,17 @@ document.addEventListener('change', e => {
   if (e.target.id === 'yearSel') { state.year = +e.target.value; render(); }
 });
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close],[data-story],[data-story-close],[data-story-nav],[data-video],[data-vid-close]');
+  const t = e.target.closest('[data-am],[data-tab],[data-year],[data-day],[data-m],[data-track],[data-cal],[data-calnav],[data-calm],[data-fr],[data-close],[data-story],[data-story-close],[data-story-nav],[data-video],[data-vid-close]');
   if (!t) return;
   if (t.dataset.close !== undefined) return closeSheet();
+  if (t.dataset.am) {
+    if (t.dataset.am === artMetric) return;
+    artMetric = t.dataset.am; try { localStorage.setItem('artMetric', artMetric); } catch (err) {}
+    const sheetOpen = !$('#sheet').hidden, y = window.scrollY;
+    render(); window.scrollTo(0, y);
+    if (sheetOpen && lastMonth != null && $('#sheetBody').innerHTML.includes('Top 10 artistas')) { const st = $('.sheet-panel').scrollTop; openMonth(lastMonth); $('.sheet-panel').scrollTop = st; }
+    return;
+  }
   if (t.dataset.story !== undefined) return openStory();
   if (t.dataset.video !== undefined) { closeStory(); return openVideo(); }
   if (t.dataset.vidClose !== undefined) return closeVideo();
